@@ -492,28 +492,35 @@ OpenKIM Portable Model Parameter Access in LAMMPS :h6
 
 [kim_pm_param get/set]
 
-Conventional OpenKIM "portable models (PMs)"_#PM_type are parameterized models. Usually, model
-parameters are obtained from quantum chemistry calculation or available experimental results.
-For example, the 12-6 Lennard Jones (LJ) is a widely used model due to its simple form and
-excellent transferability.
-It has different parameterization, including {cutoff}, {epsilon}, and {sigma} parameters and
-is capable of supporting multiple species interactions.
-Another example, is the Stillinger-Weber parameterization for Si by Stillinger and Weber (1985).
-In its original form, it is proposed to describe interactions in solid and liquid forms of Si,
-and the parameterization includes parameters like {A, B}, and {gamma}.
+All interatomic potentials amount to functional forms containing a set of
+parameters.  The specific values taken by these model parameters are usually
+chosen so as to reproduce a carefully chosen set of quantum chemistry
+calculations or available experimental results.  For example, a 12-6 Lennard
+Jones (LJ) potential intended to model nitrogen might have the values of its
+two parameters, epsilon and sigma, adjusted so that it predicts the correct
+dimer dissociation energy or the thermodynamic properties at the critical point
+of the phase diagram, etc.
 
-Using the {kim_pm_param get/set} command, enables one to access and change the parameters of PMs.
-This capability allows for parameter refinements within the model, or quantifying parameter
-sensitivity, or model enhancement, or better transferability across species.
-It can also enable the assessment of interactions through parameter optimization where new
-quantum chemistry calculations or experimental results are available.
+Because all OpenKIM models are computer implementations of interatomic
+potentials, they all possess a set of parameters, at least on an internal
+level.  However, portable models (PMs) are given the flexibility to expose any
+subset of their parameters so that they can be adjusted at any time.  Using the
+{kim_pm_param get} and {kim_pm_param set} commands enables one to access and
+change the parameters of a PM that it has chosen to make available. This
+capability allows for parameter refinements that can potentially improve a
+model's accuracy for specific properties of interest or to incorporate new
+quantum chemistry calculations or experimental results that have become
+available.  Furthermore, it allows for a quantitative study of the sensitivity
+of a model's predictions to the specific values of its parameters.
 
 NOTE: The {kim_pm_param get/set} command must be preceded by a {kim_init}.
 
-While, there is no extra restriction for using the {kim_pm_param get} command the {kim_pm_param set}
-command must be preceded by a {kim_interactions} command or the LAMMPS input {pair_style kim} commands.
+While both the {kim_pm_param get} and {kim_pm_param set} commands require that
+a {kim_init} command be previously given, the {kim_pm_param set} command must
+also be preceded by a {kim_interactions} command or the LAMMPS input
+{pair_style kim} commands.
 
-The {kim_pm_param get/set} command has multiple arguments.
+The {kim_pm_param get} and {kim_pm_param_set} commands have multiple arguments:
 
 kim_pm_param get param_name index_range variable formatarg
 kim_pm_param set param_name index_range values
