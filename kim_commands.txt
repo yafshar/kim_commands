@@ -9,21 +9,28 @@
 kim_init command :h3
 kim_interactions command :h3
 kim_query command :h3
+kim_pm_param command :h3
 
 [Syntax:]
 
 kim_init model user_units unitarg
 kim_interactions typeargs
-kim_query variable formatarg query_function queryargs :pre
+kim_query variable formatarg query_function queryargs
+kim_pm_param get param_name index_range variable formatarg
+kim_pm_param set param_name index_range values
+:pre
 
 model = name of the KIM interatomic model (the KIM ID for models archived in OpenKIM)
 user_units = the LAMMPS "units"_units.html style assumed in the LAMMPS input script
 unitarg = {unit_conversion_mode} (optional)
 typeargs = atom type to species mapping (one entry per atom type) or {fixed_types} for models with a preset fixed mapping
-variable = name of a (string style) variable where the result of the query is stored
+variable = name of a (string style) variable where the result of the query, or parameter get is stored
 formatarg = {split} (optional)
 query_function = name of the OpenKIM web API query function to be used
-queryargs = a series of {keyword=value} pairs that represent the web query; supported keywords depend on the query function :ul
+queryargs = a series of {keyword=value} pairs that represent the web query; supported keywords depend on the query function
+param_name = parameter name within the KIM model
+index_range = parameter index range (an integer or pair of integers separated by a colon, : for a range)
+values = new value(s) to replace the current parameter value(s) within the KIM model :ul
 
 
 [Examples:]
@@ -33,9 +40,12 @@ kim_interactions Si
 kim_init Sim_LAMMPS_ReaxFF_StrachanVanDuinChakraborty_2003_CHNO__SM_107643900657_000 real
 kim_init Sim_LAMMPS_ReaxFF_StrachanVanDuinChakraborty_2003_CHNO__SM_107643900657_000 metal unit_conversion_mode
 kim_interactions C H O
-Sim_LAMMPS_IFF_PCFF_HeinzMishraLinEmami_2015Ver1v5_FccmetalsMineralsSolvents Polymers__SM_039297821658_000 real
+kim_init Sim_LAMMPS_IFF_PCFF_HeinzMishraLinEmami_2015Ver1v5_FccmetalsMineralsSolvents Polymers__SM_039297821658_000 real
 kim_interactions fixed_types
-kim_query a0 get_lattice_constant_cubic crystal=\["fcc"\] species=\["Al"\] units=\["angstrom"\] :pre
+kim_query a0 get_lattice_constant_cubic crystal=\["fcc"\] species=\["Al"\] units=\["angstrom"\]
+kim_pm_param get gamma 1 varGamma
+kim_pm_param set gamma 1 3.0
+:pre
 
 [Description:]
 
@@ -75,6 +85,7 @@ Types of IMs in OpenKIM :h4
 
 There are two types of IMs archived in OpenKIM:
 
+:link(PM_type)
 The first type is called a {KIM Portable Model} (PM). A KIM PM is an independent computer implementation of an IM written in one of the languages supported by KIM (C, C++, Fortran) that conforms to the KIM Application Programming Interface ("KIM API"_https://openkim.org/kim-api/) Portable Model Interface (PMI) standard. A KIM PM will work seamlessly with any simulation code that supports the KIM API/PMI standard (including LAMMPS; see "complete list of supported codes"_https://openkim.org/projects-using-kim/).
 The second type is called a {KIM Simulator Model} (SM). A KIM SM is an IM that is implemented natively within a simulation code ({simulator}) that supports the KIM API Simulator Model Interface (SMI); in this case LAMMPS. A separate SM package is archived in OpenKIM for each parameterization of the IM, which includes all of the necessary parameter files, LAMMPS commands, and metadata (supported species, units, etc.) needed to run the IM in LAMMPS. :ol
 
@@ -181,7 +192,7 @@ Here is an example of a LAMMPS script to compute the cohesive energy
 of a face-centered cubic (fcc) lattice for the Ercolessi and Adams (1994)
 potential for Al:
 
-kim_init         EAM_Dynamo_ErcolessiAdams_1994_Al__MO_123629422045_005 metal
+kim_init         EAM_Dynamo_ErcolessiAdams_1994_Al__MO_123629422045_005 metal unit_conversion_mode
 boundary         p p p
 lattice          fcc 4.032
 region           simbox block 0 1 0 1 0 1 units lattice
@@ -477,6 +488,127 @@ In order to give credit to Test developers, the number of times results
 from these programs are queried is tracked. No other information about
 the nature of the query or its source is recorded.
 
+OpenKIM Portable Model Parameter Access in LAMMPS :h6
+
+[kim_pm_param get/set]
+
+Conventional OpenKIM "portable models (PMs)"_#PM_type are parameterized models. Usually, model
+parameters are obtained from quantum chemistry calculation or available experimental results.
+For example, the 12-6 Lennard Jones (LJ) is a widely used model due to its simple form and
+excellent transferability.
+It has different parameterization, including {cutoff}, {epsilon}, and {sigma} parameters and
+is capable of supporting multiple species interactions.
+Another example, is the Stillinger-Weber parameterization for Si by Stillinger and Weber (1985).
+In its original form, it is proposed to describe interactions in solid and liquid forms of Si,
+and the parameterization includes parameters like {A, B}, and {gamma}.
+
+Using the {kim_pm_param get/set} command, enables one to access and change the parameters of PMs.
+This capability allows for parameter refinements within the model, or quantifying parameter
+sensitivity, or model enhancement, or better transferability across species.
+It can also enable the assessment of interactions through parameter optimization where new
+quantum chemistry calculations or experimental results are available.
+
+NOTE: The {kim_pm_param get/set} command must be preceded by a {kim_init}.
+
+While, there is no extra restriction for using the {kim_pm_param get} command the {kim_pm_param set}
+command must be preceded by a {kim_interactions} command or the LAMMPS input {pair_style kim} commands.
+
+The {kim_pm_param get/set} command has multiple arguments.
+
+kim_pm_param get param_name index_range variable formatarg
+kim_pm_param set param_name index_range values
+:pre
+
+The {param_name} is the parameter name within the KIM Portable Model.
+For example {A, B, p, q, sigma, gamma, cutoff, lambda}, and {costheta0} are the parameter names
+within the Stillinger-Weber potential model of
+
+SW_StillingerWeber_1985_Si__MO_405512056662_005
+:pre
+
+The {index_range} is the parameter index range. It is an integer or pair of integers separated
+by a colon {:}.
+As an example parameter {A} within the above Stillinger-Weber potential model has
+the extent of 1 and thus {index_range} is 1 for that parameter.
+
+[kim_pm_param get]
+
+kim_pm_param get A 1 varA
+:pre
+
+In the above example, the {kim_pm_param get} command retrieves the parameter {A} value from the
+Stillinger-Weber model and places it in variable {varA}.
+This variable can be used for evaluation later in the input script or during a simulation.
+
+NOTE: One can get multiple parameters within the same command.
+
+kim_pm_param get B 1 B sigma 1 varSigma gamma 1 varGamma
+:pre
+where, the {kim_pm_param get} command retrieves the parameter {B, sigma}, and {gamma} values from the
+Stillinger-Weber model and places them in {B, varSigma}, and {varGamma} variables, respectively.
+
+NOTE: The variable can be re-used in another {kim_pm_param get} command call within the input script.
+
+To give an example of accessing members of a model parameter with the extent greater than 1
+consider a Stillinger-Weber potential model of
+
+SW_ZhouWardMartin_2013_CdTeZnSeHgS__MO_503261197030_002
+:pre
+
+In this example, to access the model parameters {sigma}, and {lambda} with the extent of 21, where we
+are interested in members 2 till 6 from the {sigma}, and members 15 till 17 from the {lambda} parameter.
+We use pair of integers separated by a colon, as
+
+kim_pm_param get lambda 15:17 lam1 lam2 lam3 sigma 2:6 sig split
+:pre
+
+As explained above, the {kim_pm_param get} command retrieves the 15, 16 and 17 member values of parameter {lambda}
+from the Stillinger-Weber model and places them in {lam1, lam2}, and {lam2} variables, respectively.
+
+It is noteworthy to mention that for the case of multiple return values, the optional {split} keyword can
+be used after the variable name to separate the results into various variables. Thus the command retrieves
+the parameter {sigma} members 2 till 6 values from the model and places them into individual variables of
+the form {prefix_I}, where {prefix} is set to the {variable} argument and {I} ranges from the lower to
+the upper integers separated by a colon. Here, the returned values from the {sigma} are placed in
+{sig_2, sig_3, sig_4, sig_5}, and {sig_6} variables, respectively.
+
+
+[kim_pm_param set]
+
+The {kim_pm_param set} command replaces the current parameter value from the model with the newly
+provided value.
+
+kim_pm_param set gamma 1 2.6
+:pre
+
+In the above example, the original value of the {gamma} parameter in the model is replaced by a new value
+of 2.6.
+
+NOTE: {kim_pm_param set} command must be preceded by a {kim_interactions} command or the LAMMPS input
+commands {pair_style kim}.
+
+NOTE: After setting the new values, one can retrieve the value with a call to {kim_pm_param get} command.
+
+kim_pm_param get gamma 1 oGamma
+kim_pm_param set gamma 1 2.6
+kim_pm_param get gamma 1 nGamma
+...
+print "original gamma = ${oGamma}, and new gamma = ${nGamma}"
+:pre
+
+NOTE: One can set multiple parameters within the same call.
+
+...
+kim_pm_param set gamma 1 ${varG} sigma 1 2.0951
+:pre
+
+One can also set new values to multiple members of a parameter with the extent greater than 1.
+For example, to set the values of the parameter {sigma} with the extent of 21, where we are interested
+to set new values to members 2 till 6, we use pair of integers separated by a colon, as before.
+
+...
+kim_pm_param set sigma 2:6 2.35214 2.23869 2.04516 2.43269 1.80415 lambda 15 -0.33
+:pre
 
 Citation of OpenKIM IMs :h4
 
@@ -520,4 +652,3 @@ doi: "https://doi.org/10.1007/s11837-011-0102-6"_https://doi.org/10.1007/s11837-
 :link(kim-api)
 [(Elliott)] Elliott, Tadmor and Bernstein, "https://openkim.org/kim-api"_https://openkim.org/kim-api (2011)
 doi: "https://doi.org/10.25950/FF8F563A"_https://doi.org/10.25950/FF8F563A
-
