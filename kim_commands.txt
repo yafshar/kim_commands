@@ -552,9 +552,9 @@ Details of the {variable}, {formatarg}, and {values} arguments are given below.
 [kim_pm_param get]
 
 Suppose that a {kim_init} command for the model
-SW_StillingerWeber_1985_Si__MO_405512056662_005 has been given.  Supposing we
-would like to know the value of the parameter {A} used by this model, we can
-issue the following:
+SW_StillingerWeber_1985_Si__MO_405512056662_005 has been given.  If we would
+like to know the value of the parameter {A} used by this model, we can issue
+the following:
 
 kim_pm_param get A 1 varA
 :pre
@@ -598,39 +598,37 @@ the local variables {lam_15}, {lam_16}, and {lam_17}, respectively.
 
 [kim_pm_param set]
 
-The {kim_pm_param set} command replaces the current parameter value from the model with the newly
-provided value.
+Any parameter that a KIM portable model exposes for access can be changed using
+the {kim_pm_param set} command.  Continuing with the example of
+the model SW_StillingerWeber_1985_Si__MO_405512056662_005, we can change the
+value of the {gamma} parameter by issuing
 
 kim_pm_param set gamma 1 2.6
 :pre
 
-In the above example, the original value of the {gamma} parameter in the model is replaced by a new value
-of 2.6.
+which will replace the original value with the value 2.6. The use of
+{kim_pm_param} set does not interfere with {kim_pm_param get}:
 
-NOTE: {kim_pm_param set} command must be preceded by a {kim_interactions} command or the LAMMPS input
-commands {pair_style kim}.
-
-NOTE: After setting the new values, one can retrieve the value with a call to {kim_pm_param get} command.
-
-kim_pm_param get gamma 1 oGamma
+kim_pm_param get gamma 1 origGamma
 kim_pm_param set gamma 1 2.6
-kim_pm_param get gamma 1 nGamma
+kim_pm_param get gamma 1 newGamma
 ...
-print "original gamma = ${oGamma}, and new gamma = ${nGamma}"
+print "original gamma = ${origGamma}, new gamma = ${newGamma}"
 :pre
 
-NOTE: One can set multiple parameters within the same call.
+Just as multiple values can be retrieved with a single call to {kim_pm_param
+get}, multiple parameters can be set with {kim_pm_param set}:
 
-...
 kim_pm_param set gamma 1 ${varG} sigma 1 2.0951
 :pre
 
-One can also set new values to multiple members of a parameter with the extent greater than 1.
-For example, to set the values of the parameter {sigma} with the extent of 21, where we are interested
-to set new values to members 2 till 6, we use pair of integers separated by a colon, as before.
+One can also assign new values to multiple members of a parameter with extent
+greater than 1.  For example, in the case of
+SW_ZhouWardMartin_2013_CdTeZnSeHgS__MO_503261197030_002, the values of members
+2 through 6 of the parameter {sigma} can be set using slice notation for
+{index_range}:
 
-...
-kim_pm_param set sigma 2:6 2.35214 2.23869 2.04516 2.43269 1.80415 lambda 15 -0.33
+kim_pm_param set sigma 2:6 2.35214 2.23869 2.04516 2.43269 1.80415
 :pre
 
 Citation of OpenKIM IMs :h4
