@@ -536,14 +536,15 @@ The parameters of a model are stored as arrays.  Although these are usually
 single-element arrays that contain a scalar model parameter, models may also
 store more than one value in each these arrays.  For example, the multispecies
 Stillinger--Weber potential
-SW_WangStroudMarkworth_1989_CdTe__MO_786496821446_000 has the same parameter
+SW_ZhouWardMartin_2013_CdTeZnSeHgS__MO_503261197030_002 has the same parameter
 names as SW_StillingerWeber_1985_Si__MO_405512056662_005, but each parameter
-array contains multiple entries that correspond to the parameter values used
-for Cd-Cd, Te-Te, and Cd-Te interactions.  The {index_range} argument used by
-these commands may either be (1) an integer that refers to the extent of the
-array associated with the parameter specified by {param_name}, or (2) a pair of
-integers separated by a colon {:} that refer to a slice of this array.  In the
-latter case, one-based indexing is used to refer to the entries of the array.
+array contains 21 entries that correspond to the parameter values used for each
+combination of the model's six supported species.  The {index_range} argument
+used by these commands may either be (1) an integer that refers to the extent
+of the array associated with the parameter specified by {param_name}, or (2) a
+pair of integers separated by a colon {:} that refer to a slice of this array.
+In the latter case, one-based indexing is used to refer to the entries of the
+array.
 
 Details of the {variable}, {formatarg}, and {values} arguments are given below.
 
@@ -568,13 +569,11 @@ kim_pm_param get A 1 varA B 1 varB
 :pre
 
 As an example of accessing the members of a parameter with extent greater than
-1, consider the model SW_ZhouWardMartin_2013_CdTeZnSeHgS__MO_503261197030_002.
-Each of the parameters of this model is an array containing 21 entries, each
-entry of which account for a pairwise combination of the model's six supported
-elements.  Suppose we wanted to retrieve members 15 through 17 of the {lambda}
-parameter array.  This can be done using the slice notation for the
-{index_range} argument alongside a corresponding number of strings in place of
-the {variable} argument:
+1, consider the aforementioned model
+SW_ZhouWardMartin_2013_CdTeZnSeHgS__MO_503261197030_002.  Suppose we wanted to
+retrieve members 15 through 17 of the {lambda} parameter array.  This can be
+done using the slice notation for the {index_range} argument alongside a
+corresponding number of strings in place of the {variable} argument:
 
 kim_pm_param get lambda 15:17 lam_1 lam_2 lam_3
 :pre
