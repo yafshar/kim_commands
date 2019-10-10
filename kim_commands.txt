@@ -539,12 +539,13 @@ Stillinger--Weber potential
 SW_ZhouWardMartin_2013_CdTeZnSeHgS__MO_503261197030_002 has the same parameter
 names as SW_StillingerWeber_1985_Si__MO_405512056662_005, but each parameter
 array contains 21 entries that correspond to the parameter values used for each
-combination of the model's six supported species.  The {index_range} argument
-used by these commands may either be (1) an integer that refers to the extent
-of the array associated with the parameter specified by {param_name}, or (2) a
-pair of integers separated by a colon {:} that refer to a slice of this array.
-In the latter case, one-based indexing is used to refer to the entries of the
-array.
+combination of the model's six supported species (this model does not have
+parameters specific to individual ternary combinations of its supported
+species).  The {index_range} argument used by these commands may either be (1)
+an integer that refers to the extent of the array associated with the parameter
+specified by {param_name}, or (2) a pair of integers separated by a colon {:}
+that refer to a slice of this array.  In the latter case, one-based indexing is
+used to refer to the entries of the array.
 
 Details of the {variable}, {formatarg}, and {values} arguments are given below.
 
