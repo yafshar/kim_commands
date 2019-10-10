@@ -117,7 +117,7 @@ The URL for the Model Page is constructed from the
 https://openkim.org/id/extended_KIM_ID
 :pre
 
-For example for the Stillinger-Weber potential
+For example for the Stillinger--Weber potential
 listed above the Model Page is located at:
 
 "https://openkim.org/id/SW_StillingerWeber_1985_Si__MO_405512056662_005"_https://openkim.org/id/SW_StillingerWeber_1985_Si__MO_405512056662_005
@@ -510,75 +510,91 @@ change the parameters of a PM that it has chosen to make available. This
 capability allows for parameter refinements that can potentially improve a
 model's accuracy for specific properties of interest or to incorporate new
 quantum chemistry calculations or experimental results that have become
-available.  Furthermore, it allows for a quantitative study of the sensitivity
-of a model's predictions to the specific values of its parameters.
+available.  Furthermore, it allows for a quantitative assessment of the
+sensitivity of a model's predictions to the specific values of its parameters.
 
-NOTE: The {kim_pm_param get/set} command must be preceded by a {kim_init}.
+NOTE: The {kim_pm_param get/set} commands must be preceded by a {kim_init}.
+The {kim_pm_param set} command must additionally be preceded by a
+{kim_interactions} command or the {pair_style kim} and {pair_style coeff}
+commands.
 
-While both the {kim_pm_param get} and {kim_pm_param set} commands require that
-a {kim_init} command be previously given, the {kim_pm_param set} command must
-also be preceded by a {kim_interactions} command or the LAMMPS input
-{pair_style kim} commands.
-
-The {kim_pm_param get} and {kim_pm_param_set} commands have multiple arguments:
+The syntax {kim_pm_param get} and {kim_pm_param_set} commands is as follows:
 
 kim_pm_param get param_name index_range variable formatarg
 kim_pm_param set param_name index_range values
 :pre
 
-The {param_name} is the parameter name within the KIM Portable Model.
-For example {A, B, p, q, sigma, gamma, cutoff, lambda}, and {costheta0} are the parameter names
-within the Stillinger-Weber potential model of
+Here, {param_name} is the name of one of the parameters of a KIM portable model
+that it allows to be changed.  The specific strings used to identify these
+parameters are defined by the model itself.  For example, {A, B, p, q, sigma,
+gamma, cutoff, lambda}, and {costheta0} are the parameter names used by the
+SW_StillingerWeber_1985_Si__MO_405512056662_005 model in OpenKIM.  The list of
+all the parameters that a portable model exposes for access/mutation are
+automatically written to the lammps log file when {kim_init} is called.
 
-SW_StillingerWeber_1985_Si__MO_405512056662_005
-:pre
+The parameters of a model are stored as arrays.  Although these are usually
+single-element arrays that contain a scalar model parameter, models may also
+store more than one value in each these arrays.  For example, the multispecies
+Stillinger--Weber potential
+SW_WangStroudMarkworth_1989_CdTe__MO_786496821446_000 has the same parameter
+names as SW_StillingerWeber_1985_Si__MO_405512056662_005, but each parameter
+array contains multiple entries that correspond to the parameter values used
+for Cd-Cd, Te-Te, and Cd-Te interactions.  The {index_range} argument used by
+these commands may either be (1) an integer that refers to the extent of the
+array associated with the parameter specified by {param_name}, or (2) a pair of
+integers separated by a colon {:} that refer to a slice of this array.  In the
+latter case, one-based indexing is used to refer to the entries of the array.
 
-The {index_range} is the parameter index range. It is an integer or pair of integers separated
-by a colon {:}.
-As an example parameter {A} within the above Stillinger-Weber potential model has
-the extent of 1 and thus {index_range} is 1 for that parameter.
+Details of the {variable}, {formatarg}, and {values} arguments are given below.
 
 [kim_pm_param get]
+
+Suppose that a {kim_init} command for the model
+SW_StillingerWeber_1985_Si__MO_405512056662_005 has been given.  Supposing we
+would like to know the value of the parameter {A} used by this model, we can
+issue the following:
 
 kim_pm_param get A 1 varA
 :pre
 
-In the above example, the {kim_pm_param get} command retrieves the parameter {A} value from the
-Stillinger-Weber model and places it in variable {varA}.
-This variable can be used for evaluation later in the input script or during a simulation.
+This will retrieve the value of parameter {A}, which we've indicated has extent
+1 (i.e. it is a scalar), and place it in the local variable with the name given
+by the {variable} argument, {varA}.  The variable {varA} can then can be used
+throughout our input script in the same manner as any other LAMMPS variable.
+Multiple variables can be retrieved with a single call to {kim_pm_param get} by
+repeating the form of the individual argument lists:
 
-NOTE: One can get multiple parameters within the same command.
-
-kim_pm_param get B 1 B sigma 1 varSigma gamma 1 varGamma
-:pre
-where, the {kim_pm_param get} command retrieves the parameter {B, sigma}, and {gamma} values from the
-Stillinger-Weber model and places them in {B, varSigma}, and {varGamma} variables, respectively.
-
-NOTE: The variable can be re-used in another {kim_pm_param get} command call within the input script.
-
-To give an example of accessing members of a model parameter with the extent greater than 1
-consider a Stillinger-Weber potential model of
-
-SW_ZhouWardMartin_2013_CdTeZnSeHgS__MO_503261197030_002
+kim_pm_param get A 1 varA B 1 varB
 :pre
 
-In this example, to access the model parameters {sigma}, and {lambda} with the extent of 21, where we
-are interested in members 2 till 6 from the {sigma}, and members 15 till 17 from the {lambda} parameter.
-We use pair of integers separated by a colon, as
+As an example of accessing the members of a parameter with extent greater than
+1, consider the model SW_ZhouWardMartin_2013_CdTeZnSeHgS__MO_503261197030_002.
+Each of the parameters of this model is an array containing 21 entries, each
+entry of which account for a pairwise combination of the model's six supported
+elements.  Suppose we wanted to retrieve members 15 through 17 of the {lambda}
+parameter array.  This can be done using the slice notation for the
+{index_range} argument alongside a corresponding number of strings in place of
+the {variable} argument:
 
-kim_pm_param get lambda 15:17 lam1 lam2 lam3 sigma 2:6 sig split
+kim_pm_param get lambda 15:17 lam_1 lam_2 lam_3
 :pre
 
-As explained above, the {kim_pm_param get} command retrieves the 15, 16 and 17 member values of parameter {lambda}
-from the Stillinger-Weber model and places them in {lam1, lam2}, and {lam2} variables, respectively.
+which will store the corresponding values in the LAMMPS varables {lam_1},
+{lam_2}, and {lam_3}.
 
-It is noteworthy to mention that for the case of multiple return values, the optional {split} keyword can
-be used after the variable name to separate the results into various variables. Thus the command retrieves
-the parameter {sigma} members 2 till 6 values from the model and places them into individual variables of
-the form {prefix_I}, where {prefix} is set to the {variable} argument and {I} ranges from the lower to
-the upper integers separated by a colon. Here, the returned values from the {sigma} are placed in
-{sig_2, sig_3, sig_4, sig_5}, and {sig_6} variables, respectively.
+Rather than literally specifying the names of each variable we wish to read the
+values into, we can make use of the optional {formatarg} argument, which works
+similar here to how it does in the {kim_query} command.  Currently, this
+argument, if given, can only be set to the string {split}, which case it will
+automatically define local variables with the same prefix (equal to the value
+of {variable}) and integer suffixes (corresponding to the index range provided)
+for each parameter value that is being read:
 
+kim_pm_param get lambda 15:17 lam split
+:pre
+
+In this case, the values of members 15 through 17 of {lambda} will be read into
+the local variables {lam_15}, {lam_16}, and {lam_17}, respectively.
 
 [kim_pm_param set]
 
