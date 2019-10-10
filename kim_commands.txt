@@ -613,17 +613,23 @@ kim_pm_param get gamma 1 origGamma
 kim_pm_param set gamma 1 2.6
 kim_pm_param get gamma 1 newGamma
 ...
-print "original gamma = ${origGamma}, new gamma = ${newGamma}"
+print "original gamma = $\{origGamma\}, new gamma = $\{newGamma\}"
 :pre
 
 Just as multiple values can be retrieved with a single call to {kim_pm_param
 get}, multiple parameters can be set with {kim_pm_param set}:
 
-kim_pm_param set gamma 1 ${varG} sigma 1 2.0951
+kim_pm_param set gamma 1 2.6 sigma 1 2.0951
 :pre
 
-One can also assign new values to multiple members of a parameter with extent
-greater than 1.  For example, in the case of
+Other variables may be used within this command, as well:
+
+variable varG equal 2.6
+kim_pm_param set gamma $\{varG\}
+:pre
+
+Finally, new values can be assigned to multiple members of a parameter with
+extent greater than 1.  For example, in the case of
 SW_ZhouWardMartin_2013_CdTeZnSeHgS__MO_503261197030_002, the values of members
 2 through 6 of the parameter {sigma} can be set using slice notation for
 {index_range}:
