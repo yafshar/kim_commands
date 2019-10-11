@@ -518,7 +518,7 @@ The {kim_pm_param set} command must additionally be preceded by a
 {kim_interactions} command or the {pair_style kim} and {pair_style coeff}
 commands.
 
-The syntax {kim_pm_param get} and {kim_pm_param_set} commands is as follows:
+The syntax {kim_pm_param get} and {kim_pm_param set} commands is as follows:
 
 kim_pm_param get param_name index_range variable formatarg
 kim_pm_param set param_name index_range values
@@ -607,7 +607,7 @@ kim_pm_param set gamma 1 2.6
 :pre
 
 which will replace the original value with the value 2.6. The use of
-{kim_pm_param} set does not interfere with {kim_pm_param get}:
+{kim_pm_param set} does not interfere with {kim_pm_param get}:
 
 kim_pm_param get gamma 1 origGamma
 kim_pm_param set gamma 1 2.6
