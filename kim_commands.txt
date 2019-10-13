@@ -516,7 +516,7 @@ For a KIM SM, the user should consult the documentation page for the specific IM
 
 The {kim_pm_param get} and {kim_pm_param set} commands provide an interface
 to access and change the parameters of a KIM PM that "publishes" its
-parameters and makes them publically available (see the
+parameters and makes them publicly available (see the
 "KIM API documentation"_https://kim-api.readthedocs.io/en/devel/features.html
 for details).
 
@@ -575,7 +575,7 @@ separated by spaces. Multiple parameters can be set with a single call to
 
 {kim_pm_param} Usage Examples and Further Clarifications :h5
 
-Examples of getting and setting KIM PM parmeters with further
+Examples of getting and setting KIM PM parameters with further
 clarifications are provided below.
 
 [Getting a scalar parameter]
