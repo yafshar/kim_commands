@@ -523,7 +523,7 @@ for details).
 NOTE: The {kim_pm_param get/set} commands must be preceded by {kim_init}.
 The {kim_pm_param set} command must additionally be preceded by a
 {kim_interactions} command (or alternatively by a {pair_style kim}
-and {pair_style coeff} commands).
+and {pair_coeff} commands).  The {kim_pm_param set} command may be used wherever a {pair_coeff} command may occur.
 
 The syntax for the {kim_pm_param} command is as follows:
 
@@ -611,10 +611,7 @@ kim_init         SW_ZhouWardMartin_2013_CdTeZnSeHgS__MO_503261197030_002 metal
 kim_pm_param     get lambda 15:17 lam
 :pre
 
-In this case, the LAMMPS variable {lam} will contain an array of values,
-e.g "\[1.0 2.0 3.0\]". Note that this format cannot be used directly
-with LAMMPS.  Some additional processing would be required to access
-individual elements.
+In this case, the LAMMPS variable {lam} will contain a string representing an array of values, e.g "1.0 2.0 3.0". Note that this string format cannot be used directly with LAMMPS.  Some additional processing would be required to access individual elements.
 
 kim_init         SW_ZhouWardMartin_2013_CdTeZnSeHgS__MO_503261197030_002 metal
 ...
