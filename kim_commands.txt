@@ -657,7 +657,7 @@ is provided at the top of the model page.
 kim_init         SW_ZhouWardMartin_2013_CdTeZnSeHgS__MO_503261197030_002 metal
 ...
 kim_param        get lambda 15:17 LAMS list
-variable         LAM_VALUE index ${LAMS}
+variable         LAM_VALUE index $\{LAMS\}
 label            loop_on_lambda
 ...
 ... do something with current value of lambda
