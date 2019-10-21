@@ -574,7 +574,7 @@ parameter, or a set of values. For example, the
 has the same parameter names as the
 "single-species SW potential"_https://openkim.org/id/SW_StillingerWeber_1985_Si__MO_405512056662_005,
 but each parameter array contains 21 entries that correspond to the parameter
-values used for each combination of the model's six supported species
+values used for each pairwise combination of the model's six supported species
 (this model does not have parameters specific to individual ternary
 combinations of its supported species).
 
