@@ -26,7 +26,7 @@ user_units = the LAMMPS "units"_units.html style assumed in the LAMMPS input scr
 unitarg = {unit_conversion_mode} (optional) :l
 typeargs = atom type to species mapping (one entry per atom type) or {fixed_types} for models with a preset fixed mapping :l
 variable(s) = single name or list of names of (string style) LAMMPS variable(s) where a query result or parameter get result is stored. Variables that do not exist will be created by the command. :l
-formatarg = {list, split or explicit} (optional): :l
+formatarg = {list, split, or explicit} (optional): :l
 {list} = returns a single string with a list of space separated values
        (e.g. "1.0 2.0 3.0"), which is placed in a LAMMPS variable as
        defined by the {variable} argument. \[default for {kim_query}\]
@@ -126,7 +126,7 @@ The URL for the Model Page is constructed from the
 https://openkim.org/id/extended_KIM_ID
 :pre
 
-For example for the Stillinger--Weber potential
+For example, for the Stillinger--Weber potential
 listed above the Model Page is located at:
 
 "https://openkim.org/id/SW_StillingerWeber_1985_Si__MO_405512056662_005"_https://openkim.org/id/SW_StillingerWeber_1985_Si__MO_405512056662_005
@@ -271,7 +271,7 @@ will work correctly for any IM for Al (KIM PM or SM) selected by the
 {kim_init} command.
 
 Care must be taken to apply unit conversion to dimensional variables read in
-from a file. For example if a configuration of atoms is read in from a
+from a file. For example, if a configuration of atoms is read in from a
 dump file using the "read_dump"_read_dump.html command, the following can
 be done to convert the box and all atomic positions to the correct units:
 
@@ -558,9 +558,9 @@ kim_param get param_name index_range variable formatarg
 kim_param set param_name index_range values
 :pre
 
-Here {param_name} is the name of a KIM PM parameter (which is published
+Here, {param_name} is the name of a KIM PM parameter (which is published
 by the PM and available for access). The specific string used to identify
-a parameter is defined by the PM. For example for the
+a parameter is defined by the PM. For example, for the
 "Stillinger--Weber (SW) potential in OpenKIM"_https://openkim.org/id/SW_StillingerWeber_1985_Si__MO_405512056662_005,
 the parameter names are {A, B, p, q, sigma, gamma, cutoff, lambda, costheta0}.
 
