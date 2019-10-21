@@ -693,8 +693,8 @@ kim_interactions Si
 kim_param        set gamma 1 2.6
 :pre
 
-The SW potential's gamma parameter is set it to 2.6.  Note that the {get}
-and {set} commands work together. So that a {get} following a {set}
+Here, the SW potential's gamma parameter is set to 2.6.  Note that the {get}
+and {set} commands work together, so that a {get} following a {set}
 operation will return the new value that was set. For example:
 
 ...
@@ -706,8 +706,8 @@ kim_param        get gamma 1 NEW_GAMMA
 print            "original gamma = $\{ORIG_GAMMA\}, new gamma = $\{NEW_GAMMA\}"
 :pre
 
-Here {ORIG_GAMMA} will contain the original gamma value for the SW
-potential, and {NEW_GAMMA} will contain 2.6.
+Here, {ORIG_GAMMA} will contain the original gamma value for the SW
+potential, while {NEW_GAMMA} will contain the value 2.6.
 
 [Setting multiple scalar parameters with a single call]
 
