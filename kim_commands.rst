@@ -1139,19 +1139,19 @@ will fail with error message indicating the mistake.
 .. note::
    For multidimensional arrays, only one colon-separated range is allowed
    in the index listing.
-   
-   .. parsed-literal::
-   
-      kim_property modify 2 key basis-atom-coordinates 1 1:3 0.0 0.0 0.0
-   
-   is valid, but 
 
    .. parsed-literal::
-   
+
+      kim_property modify 2 key basis-atom-coordinates 1 1:3 0.0 0.0 0.0
+
+   is valid, but
+
+   .. parsed-literal::
+
       kim_property modify 2 key basis-atom-coordinates 1:2 1:3 0.0 0.0 0.0 0.0 0.0 0.0
-   
+
    is not.
-   
+
 *RSE: does this require an extra counter to know the index?  It might be nice to have a special append keyword: maybe "++" and "++n" as in "++4" to add 4 values?;  but maybe it is not really necessary...*
 One can also use the *kim\_property modify* command to append to a key's
 existing array arguments.  When the values are computed one at a time, the
@@ -1217,7 +1217,7 @@ direction as it is shown below:
 
    Other cases, with unknown dimensions indicated by a string containing a
    colon character ":" in the property definition, will fail only for negarive
-   or zero index values. Any time a new index is provided which is bigger than 
+   or zero index values. Any time a new index is provided which is bigger than
    the current size, the array will be extended as necessary.
 
    It is noteworthy that the dimensions of the array are fixed based on the
@@ -1287,7 +1287,7 @@ For example,
 
    kim_property dump file
 
-where file is the name of the file in which to write all of the defined KIM property 
+where file is the name of the file in which to write all of the defined KIM property
 instance to. Once the *kim\_property dump* command is complete all KIM property instances
 are cleared from memory.
 
@@ -1296,7 +1296,7 @@ For example,
 .. parsed-literal::
 
    kim_property dump results.edn
-   
+
 
 
 Citation of OpenKIM IMs
