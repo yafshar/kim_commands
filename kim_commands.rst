@@ -976,6 +976,7 @@ A *property\_value* depends on the *property\_key* and can also be a
 key-value pair itself. For example,
 
 .. parsed-literal::
+
    kim_property modify 1 key species source-value Al
    kim_property modify 1 key mass    source-value 26.98154
 
@@ -987,32 +988,39 @@ property definition for more detailed information.
 In general, one can use the specific *property\_key* and *property\_value*
 based on a property definition in OpenKIM.
 
+The *kim\_property* command in LAMMPS invokes
+`kim-property Python package <https://github.com/openkim/kim-property>`_,
+and passes information back-and-forth between the input LAMMPS script and
+Python package. Underneath, *kim\_property* command in LAMMPS uses the
+"ctypes" package in Python, which auto-generates the interface code needed
+between Python and a set of C-style library functions. In Python lingo,
+this is "embedding" Python in LAMMPS.
+
 .. note::
 
-   The *kim\_property* commands invoke
-   `kim-property Python package <https://github.com/openkim/kim-property>`_,
-   and pass information back-and-forth between the input LAMMPS script and
-   Python package. Underneath, *kim\_property* command in LAMMPS uses the
-   "ctypes" package in Python, which auto-generates the interface code needed
-   between Python and a set of C-style library functions. In Python lingo,
-   this is "embedding" Python in LAMMPS.
-   kim-property Python package requires a Python for versions 3.6 and
-   later. So to use this command, first you need to build LAMMPS with the
-   PYTHON versions 3.6 and later package installed. Building LAMMPS with the
-   Python library on your system typically requires several auxiliary system
-   libraries to also be linked. The list of these libraries and the paths to
-   find them are specified in the lib/python/Makefile.lammps file, if you are
-   building LAMMPS with makefile. You need to insure that file contains the
-   correct information for your version of Python and your machine to
+   `kim-property Python package <https://github.com/openkim/kim-property>`_
+   requires a Python 3.6 or later.
+
+   To use this command, first, you need to build LAMMPS with the Python 3.6
+   or later package installed. Building LAMMPS with the Python library on
+   your system typically requires several auxiliary system libraries to also
+   be linked. If you are
+   `building LAMMPS with make <https://lammps.sandia.gov/doc/Build_make.html>`_,
+   the list of these libraries and the paths to find them are specified in
+   the lib/python/Makefile.lammps file. You need to insure that file contains
+   the correct information for your version of Python and your machine to
    successfully build LAMMPS. See the lib/python/README file or
    `Build LAMMPS <https://lammps.sandia.gov/doc/Build.html>`_ for more
-   detailed information.
+   detailed information. To use CMake to build LAMMPS, see
+   `building LAMMPS with CMake <https://lammps.sandia.gov/doc/Build_cmake.html>`_
+   for more detailed information.
 
    After successfully building LAMMPS with Python, you need to install the
-   kim-property Python package, which can be easily done with *pip*:
+   kim-property Python package, which can be easily done using *pip*:
    ``pip install kim_property``. See `kim-property installation
    <https://github.com/openkim/kim-property#installing-kim_property>`_
    for more detailed information.
+
 
 *kim\_property* Usage Examples and Further Clarifications
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1034,9 +1042,17 @@ For example,
    kim_property create 1 atomic-mass
    kim_property create 2 cohesive-energy-relation-cubic-crystal
 
-If the property definition name does not exist in OpenKIM, running
-the script will fail with error message indicating that the requested name
-does not exist in OpenKIM and thus is not a valid KIM property name.
+where "1" is a property instance ID, and "atomic-mass" is a property
+definition name to create the first property instance. "2" and
+"cohesive-energy-relation-cubic-crystal" are the property instance ID and
+property definition name to create the second property instance,
+respectively.
+
+If the property definition name (or a property ID) does not exist in OpenKIM,
+running the script will fail with error message indicating that the requested
+name does not exist in OpenKIM and thus is not a valid KIM property name.
+See `properties page <https://openkim.org/properties>`_ for the list of each
+property definition already exists in OpenKIM.
 
 Calling this command two or multiple times and using the same instance ID
 will fail with error message indicating that repeating instance ID is not
@@ -1072,6 +1088,9 @@ For example,
 
    kim_property modify 1 key species source-value Al
    kim_property modify 1 key mass    source-value 26.98154
+
+A property_key (e.g., "species" or "mass" in the above demonstration) is
+instantiated by a "key" token from the rest of key-value pairs.
 
 In key-value pairs, a variable will either be a scalar or an array of
 specified extent as defined in the property definition. An example of scalar
@@ -1132,8 +1151,8 @@ where, "i" is an element index and "a_value" is the computed value which will
 be placed in the array.
 
 To further demonstrate the use cases, consider to set the coordinates of
-atoms (which is a two-dimensional array). For example, consider to set an
-array of coordinates as,
+atoms (two-dimensional array). For example, consider coordinates of four
+atoms to be,
 
 .. parsed-literal::
 
@@ -1142,7 +1161,7 @@ array of coordinates as,
     [0.5, 0.0, 0.5],
     [0.0, 0.5, 0.5]]
 
-in an array of values, where we can do as below:
+To set these coordinates in an array of values, we can do as below:
 
 .. parsed-literal::
 
@@ -1151,8 +1170,9 @@ in an array of values, where we can do as below:
    kim_property modify 2 key basis-atom-coordinates source-value 3 1:3 0.5 0.0 0.5
    kim_property modify 2 key basis-atom-coordinates source-value 4 1:3 0.0 0.5 0.5
 
-It can also be done with the range of indices in the first direction as it is
-shown below:
+where the first index is a fixed integer and the second index is a range of
+elements. It can also be done with the range of indices in the first
+direction as it is shown below:
 
 .. parsed-literal::
 
@@ -1169,20 +1189,25 @@ shown below:
 
 .. note::
    In case the multi-dimensional array has a fixed length as indicated by the
-   property definition, wrong index out of range will fail with error message
-   indicating the mistake. Other cases, with unknown dimensions indicated by
-   a string containing a colon character ":" in property definition will not
-   fail. Any time the new index is provided which is bigger the previously
-   set size, the array would exted to the bigger size. It is noteworthy, that
-   the dimensions of the array are fixed based on the property definition and
-   one can not extend that.
+   property definition, any wrong index out of the fixed range will fail with
+   an error message indicating the mistake.
+
+   Other cases, with unknown dimensions indicated by a string containing a
+   colon character ":" in property definition, will not fail.
+   Any time a new index is provided which is bigger than the previously
+   set size, the array will extend to a bigger extent.
+
+   It is noteworthy that the dimensions of the array are fixed based on the
+   property definition, and one can not extend, nor change that.
 
 key-value pairs with multiple keys and values can be modified as
-demonstrated below. For example, a key "a", is a vector of conventional unit
-cell lattice constants of the cubic crystal. (See
+demonstrated below. In this example, a key "a", is a vector of conventional
+unit cell lattice constants of the cubic crystal. (See
 `property definition <https://openkim.org/properties/show/2014-04-15/staff@noreply.openkim.org/cohesive-energy-relation-cubic-crystal#key-a>`_
-for mmore detailed information.) The key "a" has key-value pairs with
-multiple keys and values, hence in this example, we modify and set them as:
+for more detailed information.)
+
+The key "a" has key-value pairs with multiple keys and values, hence in this
+example, we modify and set them one by one.
 
  .. parsed-literal::
 
@@ -1224,7 +1249,8 @@ or
 
    kim_property remove instance_id key property_key
 
-*kim\_property remove* command, can be used to remove a key.
+*kim\_property remove* command, can be used to remove a key from a newly
+created KIM property instance.
 
 For example,
 
