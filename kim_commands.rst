@@ -965,6 +965,7 @@ for more detailed information.)
    kim_property create 1 tag:brunnels@noreply.openkim.org,2016-05-11:property/atomic-mass
    kim_property create 2 tag:staff@noreply.openkim.org,2014-04-15:property/cohesive-energy-relation-cubic-crystal
 
+*RSE: I think this (below) needs to be rewritten.  I think, all modify commands must be of the form 'key key-name key-name value ...'.  I don't think there are any other options, so we should not introduce an artificial structure here ('property_key' which can be a key-value pair itself...)*
 A KIM property instance contains a set of key-value pairs akin to Perl\'s
 hash, Python\'s dictionary, and Java\'s Hashtable. In a *kim_property*
 command a "key" keyword must be proceeded by a *property\_key* which is a
@@ -985,9 +986,11 @@ and also a key-value pair itself. For the above example, see
 `Atomic mass <https://openkim.org/properties/show/2016-05-11/brunnels@noreply.openkim.org/atomic-mass>`_
 property definition for more detailed information.
 
+*RSE: I don't understand what this means*
 In general, one can use the specific *property\_key* and *property\_value*
 based on a property definition in OpenKIM.
 
+*RSE: I don't think this should be included; too much info for the user.*
 The *kim\_property* command in LAMMPS invokes
 `kim-property Python package <https://github.com/openkim/kim-property>`_,
 and passes information back-and-forth between the input LAMMPS script and
@@ -1001,6 +1004,7 @@ this is "embedding" Python in LAMMPS.
    `kim-property Python package <https://github.com/openkim/kim-property>`_
    requires a Python 3.6 or later.
 
+   *RSE: this should just point to the appropriate docs.  Too much duplicated detail*
    To use this command, first, you need to build LAMMPS with the Python 3.6
    or later package installed. Building LAMMPS with the Python library on
    your system typically requires several auxiliary system libraries to also
@@ -1015,6 +1019,7 @@ this is "embedding" Python in LAMMPS.
    `building LAMMPS with CMake <https://lammps.sandia.gov/doc/Build_cmake.html>`_
    for more detailed information.
 
+   *RSE: this part should be in the KIM build option docs.*
    After successfully building LAMMPS with Python, you need to install the
    kim-property Python package, which can be easily done using *pip*:
    ``pip install kim_property``. See `kim-property installation
@@ -1032,7 +1037,7 @@ this is "embedding" Python in LAMMPS.
    kim_property create instance_id property_id
 
 *kim\_property create* command, takes as input a property instance ID and the
-property definition name and creates initial property instance data
+property definition name and creates an initial empty property instance data
 structure.
 
 For example,
@@ -1048,13 +1053,14 @@ definition name to create the first property instance. "2" and
 property definition name to create the second property instance,
 respectively.
 
+*RSE: this should not be true; the user should be allowed to use a local Prop. definition*
 If the property definition name (or a property ID) does not exist in OpenKIM,
 running the script will fail with error message indicating that the requested
 name does not exist in OpenKIM and thus is not a valid KIM property name.
 See `properties page <https://openkim.org/properties>`_ for the list of each
-property definition already exists in OpenKIM.
+property definition that already exists in OpenKIM.
 
-Calling this command two or multiple times and using the same instance ID
+Calling this command multiple times and using the same instance ID
 will fail with error message indicating that repeating instance ID is not
 allowed.
 
@@ -1080,7 +1086,8 @@ For example,
    kim_property modify instance_id key property_key property_value
 
 *kim\_property modify* command, incrementally builds the property instance by
-receiving keys with associated arguments. It can set the new key.
+receiving keys with associated arguments.
+*RSE: should indicate somehow that multiple (optional) ['key' ...] sequences are supported*
 
 For example,
 
@@ -1125,15 +1132,31 @@ For example,
 
    kim_property modify 2 key species source-value 1:4 Al Al Al Al
 
+*RSE: what do you mean by a wrong index?*
 Calling this command with a wrong index, or wrong number of input arguments
 will fail with error message indicating the mistake.
 
 .. note::
-   Using a range of elements is only allowed in one-direction.
+   For multidimensional arrays, only one colon-separated range is allowed
+   in the index listing.
+   
+   .. parsed-literal::
+   
+      kim_property modify 2 key basis-atom-coordinates 1 1:3 0.0 0.0 0.0
+   
+   is valid, but 
 
+   .. parsed-literal::
+   
+      kim_property modify 2 key basis-atom-coordinates 1:2 1:3 0.0 0.0 0.0 0.0 0.0 0.0
+   
+   is not.
+   
+*RSE: does this require an extra counter to know the index?  It might be nice to have a special append keyword: maybe "++" and "++n" as in "++4" to add 4 values?;  but maybe it is not really necessary...*
 One can also use the *kim\_property modify* command to append to a key's
-existing array arguments, when the values computed one at a time, this
-command will be called multiple times and append values to a given key.
+existing array arguments.  When the values are computed one at a time, the
+*kim\_property modify* command may be called multiple times to append values
+to a given key.
 
 For example,
 
@@ -1176,11 +1199,12 @@ direction as it is shown below:
 
 .. parsed-literal::
 
-   kim_property modify 2 key basis-atom-coordinates source-value 1:4 1 0.0 0.5 0.5 0.0
-   kim_property modify 2 key basis-atom-coordinates source-value 1:4 2 0.0 0.5 0.0 0.5
-   kim_property modify 2 key basis-atom-coordinates source-value 1:4 3 0.0 0.0 0.5 0.5
+   kim_property modify 2 key basis-atom-coordinates source-value 1:4 1 0.0 0.5 0.5 0.0 &
+                         key basis-atom-coordinates source-value 1:4 2 0.0 0.5 0.0 0.5 &
+                         key basis-atom-coordinates source-value 1:4 3 0.0 0.0 0.5 0.5
 
 .. note::
+   *RSE: this sounds very odd; why is this the selected behavior?*
    After one sets the scalar value with the *kim\_property modify* command
    for the first time, any extra calls with a new value, does not change the
    previously set value nor produce an error.
@@ -1189,17 +1213,17 @@ direction as it is shown below:
 
 .. note::
    In case the multi-dimensional array has a fixed length as indicated by the
-   property definition, any wrong index out of the fixed range will fail with
-   an error message indicating the mistake.
+   property definition, any out-of-range index will fail with an error message.
 
    Other cases, with unknown dimensions indicated by a string containing a
-   colon character ":" in property definition, will not fail.
-   Any time a new index is provided which is bigger than the previously
-   set size, the array will extend to a bigger extent.
+   colon character ":" in the property definition, will fail only for negarive
+   or zero index values. Any time a new index is provided which is bigger than 
+   the current size, the array will be extended as necessary.
 
    It is noteworthy that the dimensions of the array are fixed based on the
-   property definition, and one can not extend, nor change that.
+   property definition.
 
+*RSE: this should be incorporated above with changes to describe the "subkeys"*
 key-value pairs with multiple keys and values can be modified as
 demonstrated below. In this example, a key "a", is a vector of conventional
 unit cell lattice constants of the cubic crystal. (See
@@ -1215,7 +1239,7 @@ example, we modify and set them one by one.
     kim_property modify 2 key a source-unit angstrom
     kim_property modify 2 key a digits 5
 
-
+*RSE: introduce this earlier; it doesn't need to be a separate item*
 In case of multiple calls to a *kim\_property modify* command for the same
 instance ID, one can write all of them in one line. You can also use "&"
 character in LAMMPS script to span a command call on multiple lines.
@@ -1249,8 +1273,7 @@ or
 
    kim_property remove instance_id key property_key
 
-*kim\_property remove* command, can be used to remove a key from a newly
-created KIM property instance.
+*kim\_property remove* command, can be used to remove a key from a KIM property instance.
 
 For example,
 
@@ -1264,14 +1287,17 @@ For example,
 
    kim_property dump file
 
-where, file is a name of a file to write the created KIM property instance to
-it.
+where file is the name of the file in which to write all of the defined KIM property 
+instance to. Once the *kim\_property dump* command is complete all KIM property instances
+are cleared from memory.
 
 For example,
 
 .. parsed-literal::
 
    kim_property dump results.edn
+   
+
 
 Citation of OpenKIM IMs
 -----------------------
@@ -1297,8 +1323,11 @@ LAMMPS is built with that package. A requirement for the KIM package,
 is the KIM API library that must be downloaded from the
 `OpenKIM website <https://openkim.org/kim-api/>`_ and installed before
 LAMMPS is compiled. When installing LAMMPS from binary, the kim-api package
-is a dependency that is automatically downloaded and installed. See the KIM
-section of the :doc:`Packages details <Packages_details>` for details.
+is a dependency that is automatically downloaded and installed. The *kim\_query*
+command requires the *libcurl* library to be installed.  The *kim\_property*
+command requires *Python* 3.6 or later and the *kim-property* python package to
+be installed. See the KIM section of the :doc:`Packages details <Packages_details>`
+for details.
 
 Furthermore, when using *kim\_commands* to run KIM SMs, any packages required
 by the native potential being used or other commands or fixes that it invokes
