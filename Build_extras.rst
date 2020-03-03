@@ -181,6 +181,15 @@ use with LAMMPS. If you want to use the :doc:`kim_query <kim_commands>`
 command, you also need to have libcurl installed with the matching
 development headers and the curl-config tool.
 
+If you want to use the :doc:`kim_property <kim_commands>`
+command, you need to build LAMMPS with the Python 3.6 or later package
+installed. After successfully building LAMMPS with Python, you need to
+install the kim-property Python package, which can be easily done using
+*pip* as ``pip install kim-property``, or from *conda-forge* channel as
+``conda install kim-property`` if LAMMPS is built in Conda. See
+`kim-property installation <https://github.com/openkim/kim-property#installing-kim-property>`_
+for more detailed information.
+
 See `Obtaining KIM Models <http://openkim.org/doc/usage/obtaining-models>`_ to
 learn how to install a pre-build binary of the OpenKIM Repository of Models.
 See the list of all KIM models here: https://openkim.org/browse/models
