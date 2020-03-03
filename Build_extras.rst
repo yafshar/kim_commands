@@ -183,7 +183,7 @@ development headers and the curl-config tool.
 
 If you want to use the :doc:`kim_property <kim_commands>`
 command, you need to build LAMMPS with the Python 3.6 or later package
-installed. See the :doc:`Python <_python>` doc page for more info on building
+installed. See the `Python <_python>` doc page for more info on building
 LAMMPS with the version of Python on your system.
 After successfully building LAMMPS with Python, you need to
 install the kim-property Python package, which can be easily done using
