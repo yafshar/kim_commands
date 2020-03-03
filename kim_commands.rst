@@ -1007,10 +1007,11 @@ property definition for more detailed information.
 .. note::
 
     Each map is required to have at least one key-value pair. A pair of
-    "source-value" (a "name\_key") and its value (a "name\_value"). Here, the
-    "name\_value" is the value (contents) of the variable. This variable will
-    either be a scalar or an array of specified sextent as defined in the
-    property definition. For example, at the
+    "source-value" (a "kaye\_name\_key") and its value
+    (a "key\_name\_value"). Here, the "key\_name\_value" is the value
+    (contents) of the variable. This variable will either be a scalar or an
+    array of specified sextent as defined in the property definition. For
+    example, at the
     `atomic mass <https://openkim.org/properties/show/2016-05-11/brunnels@noreply.openkim.org/atomic-mass>`_
     property definition, the "species" key name is a required scalar string
     variable. In the above example, its "source-value" is a species name,
