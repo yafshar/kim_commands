@@ -1289,7 +1289,7 @@ or
 
 .. parsed-literal::
 
-   kim_property remove instance_id key property_key
+   kim_property remove instance_id key key_name
 
 *kim\_property remove* command, can be used to remove a key from a KIM property instance.
 
