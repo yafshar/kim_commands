@@ -525,7 +525,7 @@ is available on the OpenKIM webpage at
    used to compute this property. In cases where there are multiple
    methods in OpenKIM for computing a property, a *method* keyword can
    be provided to select the method of choice.  See the
-   `query documentation <https://openkim.org/doc/repository/kim-query>`_
+   `query documentation <https://openkim.org/doc/usage/kim-query>`_
    to see which methods are available for a given *query function*\ .
 
 *kim\_query* Usage Examples and Further Clarifications
@@ -608,7 +608,7 @@ potential.
    If no tolerance is passed a default value is used. If multiple results
    are returned (indicating that the tolerance is too large), *kim\_query*
    will return an error. See the
-   `query documentation <https://openkim.org/doc/repository/kim-query>`_
+   `query documentation <https://openkim.org/doc/usage/kim-query>`_
    to see which numerical arguments and tolerances are available for a
    given *query function*\ .
 
