@@ -973,7 +973,7 @@ as stipulated in the property definition.
     Each map assigned to a *key\_name* must contain the *key\_name\_key*
     "source-value" and an associated *key\_name\_value* of the appropriate
     type (as defined in the relevant property definition).  For keys that are
-    that are defined as having physical units in their property definition, the
+    defined as having physical units in their property definition, the
     "source-unit" *key\_name\_key* must also be given a string value recognized
     by `GNU units <https://www.gnu.org/software/units/>`_.
 
@@ -1199,7 +1199,7 @@ with this key should be assigned the following value:
     [0.5, 0.0, 0.5],
     [0.0, 0.5, 0.5]]
 
-While each of the nine components could be set individually, we can instead set
+While each of the twelve components could be set individually, we can instead set
 each row at a time using colon notation:
 
 .. parsed-literal::
