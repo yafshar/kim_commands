@@ -981,7 +981,7 @@ Once a *kim\_property create* command has been given to instantiate a property
 instance, maps associated with the property's keys can be edited using the
 *kim\_property modify* command.  In using this command, the special keyword
 "key" should be given, followed by the property key name and the key-value pair
-in the map associated with that key that is to be set.  For example, the
+in the map associated with the key that is to be set.  For example, the
 `atomic-mass <https://openkim.org/properties/show/2016-05-11/brunnels@noreply.openkim.org/atomic-mass>`_
 property definition consists of two property keys named "mass" and "species."
 An instance of this property could be created like so:
