@@ -27,9 +27,9 @@ Syntax
    kim_param get param_name index_range variables formatarg
    kim_param set param_name index_range values
    kim_property create  instance_id property_id
-   kim_property destroy instance_id
    kim_property modify  instance_id key key_name key_name_key key_name_value
    kim_property remove  instance_id key key_name
+   kim_property destroy instance_id
    kim_property dump    file
 
 
@@ -82,10 +82,10 @@ Examples
    kim_param get gamma 1 varGamma
    kim_param set gamma 1 3.0
    kim_property create  1 atomic-mass
-   kim_property destroy 1
    kim_property modify  1 key mass source-value 26.98154
    kim_property modify  1 key species source-value Al
    kim_property remove  1 key species
+   kim_property destroy 1
    kim_property dump    results.edn
 
 
@@ -913,9 +913,9 @@ instances of them within a LAMMPS script.  Their general syntax is as follows:
 .. parsed-literal::
 
    kim_property create  instance_id property_id
-   kim_property destroy instance_id
    kim_property modify  instance_id key key_name key_name_key key_name_value
    kim_property remove  instance_id key key_name
+   kim_property destroy instance_id
    kim_property dump    file
 
 Here, *instance\_id* is a positive integer used to uniquely identify each
@@ -1026,23 +1026,6 @@ If the *property\_id* given cannot be found in OpenKIM and no file of this name
 containing a valid property definition can be found, this command will produce
 an error with an appropriate message.  Calling *kim\_property create* with the
 same instance ID multiple times will also produce an error.
-
-**Destroy**
-
-.. parsed-literal::
-
-   kim_property destroy instance_id
-
-The *kim\_property destroy* command deletes a previously created property
-instance ID.  For example,
-
-.. parsed-literal::
-
-   kim_property destroy 2
-
-.. note::
-    If this command is called with an instance ID that does not exist, no
-    error is raised.
 
 **Modify**
 
@@ -1262,6 +1245,23 @@ property instance.  For example,
 .. parsed-literal::
 
    kim_property remove 2 key basis-atom-coordinates
+
+**Destroy**
+
+.. parsed-literal::
+
+   kim_property destroy instance_id
+
+The *kim\_property destroy* command deletes a previously created property
+instance ID.  For example,
+
+.. parsed-literal::
+
+   kim_property destroy 2
+
+.. note::
+    If this command is called with an instance ID that does not exist, no
+    error is raised.
 
 **Dump**
 
