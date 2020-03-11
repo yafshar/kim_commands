@@ -892,7 +892,7 @@ order.
 
 .. _kim\_property command:
 
-Converting material properties computed in LAMMPS to KIM property instances (*kim\_property*)
+Writing material properties computed in LAMMPS to stadard KIM property instance format (*kim\_property*)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. note::
