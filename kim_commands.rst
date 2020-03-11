@@ -895,11 +895,6 @@ order.
 Writing material properties computed in LAMMPS to stadard KIM property instance format (*kim\_property*)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. note::
-
-   The `kim-property Python package <https://github.com/openkim/kim-property>`_
-   requires Python 3.6 or later.
-
 The OpenKIM system includes a collection of tests, models, predictions, and
 reference data. A test can be a LAMMPS script that couples with an
 interatomic potential to generate one or more predictions, each of which is
