@@ -953,8 +953,8 @@ of these cases are shown below:
    kim_property create 1 new-property.edn
    kim_property create 2 /home/mary/marys-kim-properties/dissociation-energy.edn
 
-In the last example, "new-property.edn" is the name of a file that contains a
-user-defined (local) property definition.
+In the last example, "new-property.edn" and "/home/mary/marys-kim-properties/dissociation-energy.edn" are the
+names of files that contain user-defined (local) property definitions.
 
 A KIM property instance takes the form of a "map," i.e. a set of key-value
 pairs akin to Perl\'s hash, Python\'s dictionary, or Java\'s Hashtable.  It
