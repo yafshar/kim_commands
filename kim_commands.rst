@@ -60,7 +60,7 @@ Syntax
 * values = new value(s) to replace the current value(s) of a KIM portable model parameter
 * instance\_id = a positive integer identifying the KIM property instance
 * property\_id = name of a `KIM property definition <https://openkim.org/properties>`_, the full, unique ID of the property (including the contributor and date), or a file name corresponding to a local property definition file
-* key\_name = one of the keys belonging to the specified KIM property definition (defined by the author of the property definition)
+* key\_name = one of the keys belonging to the specified KIM property definition
 * key\_name\_key = a key belonging to a key-value pair (standardized in the `KIM Properties Framework <https://openkim.org/doc/schema/properties-framework>`_)
 * key\_name\_value = value to be associated with a key\_name\_key in a key-value pair
 * file = name of a file to write the currently defined set of KIM property instances to
