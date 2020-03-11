@@ -908,9 +908,9 @@ associated with a property definition (see the
 `KIM Properties Framework <https://openkim.org/doc/schema/properties-framework/>`_
 for further details). A prediction of a material property is thus a specific
 numerical realization of a property definition, referred to as a "property
-instance."  The objective of the *kim\_property* command is to make it as easy
-as possible to convert a LAMMPS script that computes a material property into a
-KIM test.
+instance."  The objective of the *kim\_property* command is to make it easy to
+output material properties in a standardized, machine readable, format that can be easily ingested by other programs.  Additionally, it aims to make it as easy as possible to convert a LAMMPS script that computes a
+material property into a KIM test.
 
 A developer interested in creating a KIM test using a LAMMPS script should
 first determine whether a property definition that applies to their calculation
