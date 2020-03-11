@@ -951,7 +951,7 @@ of these cases are shown below:
 .. parsed-literal::
 
    kim_property create 1 new-property.edn
-   kim_property create 2 cohesive-energy-relation-cubic-crystal
+   kim_property create 2 /home/mary/marys-kim-properties/dissociation-energy.edn
 
 In the last example, "new-property.edn" is the name of a file that contains a
 user-defined (local) property definition.
