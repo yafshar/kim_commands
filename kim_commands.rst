@@ -1049,8 +1049,10 @@ instance ID.  For example,
 
    kim_property destroy 2
 
-Note that if this command is called with an instance ID that does not exist, no
-error is raised.
+.. note::
+
+    Note that if this command is called with an instance ID that does not
+    exist, no error is raised.
 
 **Modify**
 
@@ -1090,11 +1092,13 @@ is assigned a value of "eV" and the key "digits" which is assigned a value of
 
    kim_property modify 2 key cohesive-potential-energy source-unit eV digits 5
 
-Note that the relevant data types of the values in the map are handled
-automatically based on the `KIM Properties Framework
-<https://openkim.org/doc/schema/properties-framework>`_.  In the example above,
-this means that the value "eV" will automatically be interpreted as a string
-while the value 5 will be interpreted as an integer.
+.. note::
+
+    Note that the relevant data types of the values in the map are handled
+    automatically based on the `KIM Properties Framework
+    <https://openkim.org/doc/schema/properties-framework>`_.  In the example above,
+    this means that the value "eV" will automatically be interpreted as a string
+    while the value 5 will be interpreted as an integer.
 
 The values contained in maps can either be scalars, as in all of the examples
 above, or arrays depending on which is stipulated in the corresponding property
@@ -1104,6 +1108,7 @@ multidimensional arrays, multiple indices must be given depending on the
 dimensionality of the array.
 
 .. note::
+
    All array indexing used by *kim\_property modify* is one-based, i.e. the
    indices are enumerated 1, 2, 3, ...
 
@@ -1130,11 +1135,14 @@ of the "species" property key, we can do so by issuing:
    kim_property modify 2 key species source-value 3 Al
    kim_property modify 2 key species source-value 4 Al
 
-Note that no declaration of the number of elements in this array was given;
-*kim\_property modify* will automatically handle memory management to allow you
-to append values to the array.
+.. note::
+
+    Note that no declaration of the number of elements in this array was given;
+    *kim\_property modify* will automatically handle memory management to allow you
+    to append values to the array.
 
 .. note::
+
    In the event that you use *kim\_property modify* to set the value of an
    array index without having set the values of all lesser indices, they will
    be assigned default values based on the data type associated with the key in
@@ -1213,9 +1221,11 @@ column.  We could, instead, choose to set each column at a time like so:
                          key basis-atom-coordinates source-value 1:4 2 0.0 0.5 0.0 0.5 &
                          key basis-atom-coordinates source-value 1:4 3 0.0 0.0 0.5 0.5
 
-Note that multiple calls of *kim\_property modify* made for the same
-instance ID can be combined into a single invocation, meaning the following are
-both valid:
+.. note::
+
+    Note that multiple calls of *kim\_property modify* made for the same
+    instance ID can be combined into a single invocation, meaning the following are
+    both valid:
 
 .. parsed-literal::
 
@@ -1237,6 +1247,7 @@ both valid:
                           key basis-atom-coordinates source-value 4 1:3 0.0 0.5 0.5
 
 .. note::
+
    For multidimensional arrays, only one colon-separated range is allowed
    in the index listing.  Therefore,
 
@@ -1253,6 +1264,7 @@ both valid:
    is not.
 
 .. note::
+
    After one sets a value in a map with the *kim\_property modify* command,
    additional calls will overwrite the previous value.
 
@@ -1284,7 +1296,10 @@ For example,
 
    kim_property dump results.edn
 
-Note that issuing the *kim\_property dump* command clears all existing property instances from memory.
+.. note::
+
+    Note that issuing the *kim\_property dump* command clears all existing
+    property instances from memory.
 
 Citation of OpenKIM IMs
 -----------------------
@@ -1303,7 +1318,6 @@ and enables open source efforts like OpenKIM to function.
 
 Restrictions
 """"""""""""
-
 
 The set of *kim\_commands* is part of the KIM package.  It is only enabled if
 LAMMPS is built with that package. A requirement for the KIM package,
@@ -1325,20 +1339,14 @@ Related commands
 
 :doc:`pair_style kim <pair_kim>`
 
-
 ----------
 
-
 .. _kim-mainpaper:
-
-
 
 **(Tadmor)** Tadmor, Elliott, Sethna, Miller and Becker, JOM, 63, 17 (2011).
 doi: `https://doi.org/10.1007/s11837-011-0102-6 <https://doi.org/10.1007/s11837-011-0102-6>`_
 
 .. _kim-api:
-
-
 
 **(Elliott)** Elliott, Tadmor and Bernstein, `https://openkim.org/kim-api <https://openkim.org/kim-api>`_ (2011)
 doi: `https://doi.org/10.25950/FF8F563A <https://doi.org/10.25950/FF8F563A>`_
