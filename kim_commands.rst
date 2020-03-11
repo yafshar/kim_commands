@@ -884,7 +884,7 @@ order.
 
 .. _kim\_property command:
 
-Writing material properties computed in LAMMPS to stadard KIM property instance format (*kim\_property*)
+Writing material properties computed in LAMMPS to standard KIM property instance format (*kim\_property*)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The OpenKIM system includes a collection of tests, models, predictions, and
