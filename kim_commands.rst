@@ -59,7 +59,7 @@ Syntax
 * index\_range = KIM portable model parameter index range (an integer for a single element, or pair of integers separated by a colon for a range of elements)
 * values = new value(s) to replace the current value(s) of a KIM portable model parameter
 * instance\_id = a positive integer identifying the KIM property instance
-* property\_id = name of a `KIM property definition <https://openkim.org/properties>`_, the full, unique ID of the property (including the contributor and date), or a file name corresponding to a local property definition file
+* property\_id = identifier of a `KIM Property Definition <https://openkim.org/properties>`_, which can be (1) a property short name, (2) the full unique ID of the property (including the contributor and date), (3) a file name corresponding to a local property definition file
 * key\_name = one of the keys belonging to the specified KIM property definition
 * key\_name\_key = a key belonging to a key-value pair (standardized in the `KIM Properties Framework <https://openkim.org/doc/schema/properties-framework>`_)
 * key\_name\_value = value to be associated with a key\_name\_key in a key-value pair
@@ -89,6 +89,8 @@ Examples
    kim_property dump    results.edn
 
 
+
+.. _kim\_description:
 
 Description
 """""""""""
@@ -887,19 +889,22 @@ order.
 Writing material properties computed in LAMMPS to standard KIM property instance format (*kim\_property*)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The OpenKIM system includes a collection of tests, models, predictions, and
-reference data. A test can be a LAMMPS script that couples with an
-interatomic potential to generate one or more predictions, each of which is
-associated with a specific material property, and every material property is
-associated with a property definition (see the
+As explained :ref:`above<kim\_description>`,
+The OpenKIM system includes a collection of Tests (material property calculation codes),
+Models (interatomic potentials), Predictions, and Reference Data (DFT or experiments).
+Specifically, a KIM Test is a computation that when coupled with a KIM Model generates
+the prediction of that model for a specific material property rigorously defined
+by a KIM Property Definition (see the
 `KIM Properties Framework <https://openkim.org/doc/schema/properties-framework/>`_
-for further details). A prediction of a material property is thus a specific
-numerical realization of a property definition, referred to as a "property
-instance."  The objective of the *kim\_property* command is to make it easy to
-output material properties in a standardized, machine readable, format that can be easily ingested by other programs.  Additionally, it aims to make it as easy as possible to convert a LAMMPS script that computes a
-material property into a KIM test.
+for further details). A prediction of a material property for a given model is a specific
+numerical realization of a property definition, referred to as a "Property
+Instance."  The objective of the *kim\_property* command is to make it easy to
+output material properties in a standardized, machine readable, format that can be easily
+ingested by other programs.
+Additionally, it aims to make it as easy as possible to convert a LAMMPS script that computes a
+material property into a KIM Test that can then be uploaded to `openkim.org <https://openkim.org>`_
 
-A developer interested in creating a KIM test using a LAMMPS script should
+A developer interested in creating a KIM Test using a LAMMPS script should
 first determine whether a property definition that applies to their calculation
 already exists in OpenKIM by searching the `properties page
 <https://openkim.org/properties>`_.  If none exists, it is possible to use a
@@ -919,11 +924,12 @@ instances of them within a LAMMPS script.  Their general syntax is as follows:
    kim_property dump    file
 
 Here, *instance\_id* is a positive integer used to uniquely identify each
-property instance and, as such, these values cannot be repeated across multiple
-property instances.  A *property\_id* is any of (1) a KIM property name, (2)
-the full ID of the property including the contributor and date, or (3) a file
-name that contains a local user-defined property definition.  Examples of each
-of these cases are shown below:
+property instance; (note that the results file can contain multiple property
+instances).  A property\_id is an identifier of a
+`KIM Property Definition <https://openkim.org/properties>`_,
+which can be (1) a property short name, (2) the full unique ID of the property
+(including the contributor and date), (3) a file name corresponding to a local
+property definition file.  Examples of each of these cases are shown below:
 
 .. parsed-literal::
 
@@ -946,8 +952,8 @@ names of files that contain user-defined (local) property definitions.
 A KIM property instance takes the form of a "map," i.e. a set of key-value
 pairs akin to Perl\'s hash, Python\'s dictionary, or Java\'s Hashtable.  It
 consists of a set of property key names, each of which is referred to here by
-the *key\_name* argument, that are defined as part of the relevant property
-definition and include only lowercase alphanumeric characters and dashes.  The
+the *key\_name* argument, that are defined as part of the relevant KIM Property
+Definition and include only lowercase alphanumeric characters and dashes.  The
 value paired with each property key is itself a map whose possible keys are
 defined as part of the `KIM Properties Framework
 <https://openkim.org/doc/schema/properties-framework>`_; these keys are
@@ -958,8 +964,8 @@ as stipulated in the property definition.
 .. note::
     Each map assigned to a *key\_name* must contain the *key\_name\_key*
     "source-value" and an associated *key\_name\_value* of the appropriate
-    type (as defined in the relevant property definition).  For keys that are
-    defined as having physical units in their property definition, the
+    type (as defined in the relevant KIM Property Definition).  For keys that are
+    defined as having physical units, the
     "source-unit" *key\_name\_key* must also be given a string value recognized
     by `GNU units <https://www.gnu.org/software/units/>`_.
 
@@ -1067,14 +1073,14 @@ is assigned a value of "eV" and the key "digits" which is assigned a value of
 
 .. note::
     The relevant data types of the values in the map are handled
-    automatically based on the `KIM Properties Framework
-    <https://openkim.org/doc/schema/properties-framework>`_.  In the example above,
+    automatically based on the specification of the key in the
+    KIM Property Definition.  In the example above,
     this means that the value "eV" will automatically be interpreted as a string
     while the value 5 will be interpreted as an integer.
 
 The values contained in maps can either be scalars, as in all of the examples
-above, or arrays depending on which is stipulated in the corresponding property
-definition.  For one-dimensional arrays, a single one-based index must be
+above, or arrays depending on which is stipulated in the corresponding Property
+Definition.  For one-dimensional arrays, a single one-based index must be
 supplied that indicates which element of the array is to be modified.  For
 multidimensional arrays, multiple indices must be given depending on the
 dimensionality of the array.
@@ -1084,9 +1090,9 @@ dimensionality of the array.
    indices are enumerated 1, 2, 3, ...
 
 .. note::
-   The dimensionality of arrays are defined in the the corresponding property
-   definition.  The extent of each dimension of an array may either be a
-   specific finite number or indefinite based on the property definition.  If
+   The dimensionality of arrays are defined in the the corresponding Property
+   Definition.  The extent of each dimension of an array can either be a
+   specific finite number or indefinite and determined at run time.  If
    an array has a fixed extent, attempting to modify an out-of-range index will
    fail with an error message.
 
@@ -1107,11 +1113,11 @@ of the "species" property key, we can do so by issuing:
 
 .. note::
     No declaration of the number of elements in this array was given;
-    *kim\_property modify* will automatically handle memory management to allow you
-    to append values to the array.
+    *kim\_property modify* will automatically handle memory management to allow
+    an arbitrary number of elements to be added to the array.
 
 .. note::
-   In the event that you use *kim\_property modify* to set the value of an
+   In the event that *kim\_property modify* is used to set the value of an
    array index without having set the values of all lesser indices, they will
    be assigned default values based on the data type associated with the key in
    the map:
