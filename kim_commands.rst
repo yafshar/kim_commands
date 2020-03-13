@@ -19,7 +19,7 @@ Syntax
 """"""
 
 
-.. parsed-literal::
+.. code-block::
 
    kim_init model user_units unitarg
    kim_interactions typeargs
@@ -42,7 +42,7 @@ Syntax
 * variable(s) = single name or list of names of (string style) LAMMPS variable(s) where a query result or parameter get result is stored. Variables that do not exist will be created by the command.
 * formatarg = *list, split, or explicit* (optional):
 
-  .. parsed-literal::
+  .. code-block::
 
      *list* = returns a single string with a list of space separated values
             (e.g. "1.0 2.0 3.0"), which is placed in a LAMMPS variable as
@@ -69,7 +69,7 @@ Examples
 """"""""
 
 
-.. parsed-literal::
+.. code-block::
 
    kim_init SW_StillingerWeber_1985_Si__MO_405512056662_005 metal
    kim_interactions Si
@@ -161,7 +161,7 @@ followed by a unique 12-digit code and a 3-digit version identifier.
 By convention SM prefixes begin with *Sim\_* to readily identify them.
 
 
-.. parsed-literal::
+.. code-block::
 
    SW_StillingerWeber_1985_Si__MO_405512056662_005
    Sim_LAMMPS_ReaxFF_StrachanVanDuinChakraborty_2003_CHNO__SM_107643900657_000
@@ -175,7 +175,7 @@ The URL for the Model Page is constructed from the
 `extended KIM ID <https://openkim.org/doc/schema/kim-ids/>`_ of the IM:
 
 
-.. parsed-literal::
+.. code-block::
 
    https://openkim.org/id/extended_KIM_ID
 
@@ -183,7 +183,7 @@ For example, for the Stillinger--Weber potential
 listed above the Model Page is located at:
 
 
-.. parsed-literal::
+.. code-block::
 
    `https://openkim.org/id/SW_StillingerWeber_1985_Si__MO_405512056662_005 <https://openkim.org/id/SW_StillingerWeber_1985_Si__MO_405512056662_005>`_
 
@@ -262,7 +262,7 @@ of a face-centered cubic (fcc) lattice for the Ercolessi and Adams (1994)
 potential for Al:
 
 
-.. parsed-literal::
+.. code-block::
 
    kim_init         EAM_Dynamo_ErcolessiAdams_1994_Al__MO_123629422045_005 metal
    boundary         p p p
@@ -289,7 +289,7 @@ These factors are stored as :doc:`internal style variables <variable>` with
 the following standard names:
 
 
-.. parsed-literal::
+.. code-block::
 
    _u_mass
    _u_distance
@@ -317,7 +317,7 @@ meters, computes the total energy, and prints the cohesive energy in
 Joules regardless of the units of the IM.
 
 
-.. parsed-literal::
+.. code-block::
 
    kim_init         EAM_Dynamo_ErcolessiAdams_1994_Al__MO_123629422045_005 si unit_conversion_mode
    boundary         p p p
@@ -344,7 +344,7 @@ dump file using the :doc:`read_dump <read_dump>` command, the following can
 be done to convert the box and all atomic positions to the correct units:
 
 
-.. parsed-literal::
+.. code-block::
 
    variable xyfinal equal xy\*${_u_distance}
    variable xzfinal equal xz\*${_u_distance}
@@ -386,14 +386,14 @@ If the LAMMPS simulation has four atom types, where the first three are Si,
 and the fourth is C, the following *kim\_interactions* command would be used:
 
 
-.. parsed-literal::
+.. code-block::
 
    kim_interactions Si Si Si C
 
 Alternatively, for a model with a fixed mapping the command would be:
 
 
-.. parsed-literal::
+.. code-block::
 
    kim_interactions fixed_types
 
@@ -405,7 +405,7 @@ the appropriate *pair\_coeff* command. For example, for the
 Ercolessi and Adams (1994) KIM PM for Al set by the following commands:
 
 
-.. parsed-literal::
+.. code-block::
 
    kim_init EAM_Dynamo_ErcolessiAdams_1994_Al__MO_123629422045_005 metal
    ...
@@ -416,7 +416,7 @@ Ercolessi and Adams (1994) KIM PM for Al set by the following commands:
 the *kim\_interactions* command executes the following LAMMPS input commands:
 
 
-.. parsed-literal::
+.. code-block::
 
    pair_style kim EAM_Dynamo_ErcolessiAdams_1994_Al__MO_123629422045_005
    pair_coeff \* \* Al
@@ -429,7 +429,7 @@ For example, for the Strachan et al. (2003) ReaxFF SM
 set by the following commands:
 
 
-.. parsed-literal::
+.. code-block::
 
    kim_init Sim_LAMMPS_ReaxFF_StrachanVanDuinChakraborty_2003_CHNO__SM_107643900657_000 real
    ...
@@ -440,7 +440,7 @@ set by the following commands:
 the *kim\_interactions* command executes the following LAMMPS input commands:
 
 
-.. parsed-literal::
+.. code-block::
 
    pair_style reax/c lmp_control safezone 2.0 mincap 100
    pair_coeff \* \* ffield.reax.rdx C H N O
@@ -478,7 +478,7 @@ of an IM set by *kim\_init* for material properties archived in
 The syntax for the *kim\_query* command is as follows:
 
 
-.. parsed-literal::
+.. code-block::
 
    kim_query variable formatarg query_function queryargs
 
@@ -535,7 +535,7 @@ or analysis phases of LAMMPS simulations. Some examples are given below.
 **Define an equilibrium fcc crystal**
 
 
-.. parsed-literal::
+.. code-block::
 
    kim_init         EAM_Dynamo_ErcolessiAdams_1994_Al__MO_123629422045_005 metal
    boundary         p p p
@@ -560,7 +560,7 @@ minimization to find the equilibrium lattice constant.
 **Define an equilibrium hcp crystal**
 
 
-.. parsed-literal::
+.. code-block::
 
    kim_init         EAM_Dynamo_Mendelev_2007_Zr__MO_848899341753_000 metal
    boundary         p p p
@@ -583,7 +583,7 @@ input script more readable.
 **Define a crystal at finite temperature accounting for thermal expansion**
 
 
-.. parsed-literal::
+.. code-block::
 
    kim_init         EAM_Dynamo_ErcolessiAdams_1994_Al__MO_123629422045_005 metal
    boundary         p p p
@@ -613,7 +613,7 @@ potential.
 **Compute defect formation energy**
 
 
-.. parsed-literal::
+.. code-block::
 
    kim_init         EAM_Dynamo_ErcolessiAdams_1994_Al__MO_123629422045_005 metal
    ...
@@ -680,7 +680,7 @@ for details).
 The syntax for the *kim\_param* command is as follows:
 
 
-.. parsed-literal::
+.. code-block::
 
    kim_param get param_name index_range variable formatarg
    kim_param set param_name index_range values
@@ -740,7 +740,7 @@ clarifications are provided below.
 **Getting a scalar parameter**
 
 
-.. parsed-literal::
+.. code-block::
 
    kim_init         SW_StillingerWeber_1985_Si__MO_405512056662_005 metal
    ...
@@ -754,7 +754,7 @@ LAMMPS variable.
 **Getting multiple scalar parameters with a single call**
 
 
-.. parsed-literal::
+.. code-block::
 
    kim_init         SW_StillingerWeber_1985_Si__MO_405512056662_005 metal
    ...
@@ -769,7 +769,7 @@ There are several options when getting a range of values from a parameter
 determined by the *formatarg* argument.
 
 
-.. parsed-literal::
+.. code-block::
 
    kim_init         SW_ZhouWardMartin_2013_CdTeZnSeHgS__MO_503261197030_002 metal
    ...
@@ -791,7 +791,7 @@ lambda retrieved by the *get* operation are placed in the LAMMPS variables
    is provided at the top of the model page.
 
 
-.. parsed-literal::
+.. code-block::
 
    kim_init         SW_ZhouWardMartin_2013_CdTeZnSeHgS__MO_503261197030_002 metal
    ...
@@ -813,7 +813,7 @@ as shown in the example. At each iteration of the loop *LAM\_VALUE*
 contains the current value of lambda.
 
 
-.. parsed-literal::
+.. code-block::
 
    kim_init         SW_ZhouWardMartin_2013_CdTeZnSeHgS__MO_503261197030_002 metal
    ...
@@ -828,7 +828,7 @@ the lambda array is appended to create the variable names.
 **Setting a scalar parameter**
 
 
-.. parsed-literal::
+.. code-block::
 
    kim_init         SW_StillingerWeber_1985_Si__MO_405512056662_005 metal
    ...
@@ -840,7 +840,7 @@ and *set* commands work together, so that a *get* following a *set*
 operation will return the new value that was set. For example:
 
 
-.. parsed-literal::
+.. code-block::
 
    ...
    kim_interactions Si
@@ -856,7 +856,7 @@ potential, while *NEW\_GAMMA* will contain the value 2.6.
 **Setting multiple scalar parameters with a single call**
 
 
-.. parsed-literal::
+.. code-block::
 
    kim_init         SW_ZhouWardMartin_2013_CdTeZnSeHgS__MO_503261197030_002 metal
    ...
@@ -873,7 +873,7 @@ be used when setting parameters.
 **Setting a range of values of a parameter**
 
 
-.. parsed-literal::
+.. code-block::
 
    kim_init         SW_ZhouWardMartin_2013_CdTeZnSeHgS__MO_503261197030_002 metal
    ...
@@ -915,7 +915,7 @@ property definitions have been identified, the *kim\_property create*,
 commands provide an interface to create, set, modify, remove, and destroy
 instances of them within a LAMMPS script.  Their general syntax is as follows:
 
-.. parsed-literal::
+.. code-block::
 
    kim_property create  instance_id property_id
    kim_property modify  instance_id key key_name key_name_key key_name_value
@@ -931,17 +931,17 @@ which can be (1) a property short name, (2) the full unique ID of the property
 (including the contributor and date), (3) a file name corresponding to a local
 property definition file.  Examples of each of these cases are shown below:
 
-.. parsed-literal::
+.. code-block::
 
    kim_property create 1 atomic-mass
    kim_property create 2 cohesive-energy-relation-cubic-crystal
 
-.. parsed-literal::
+.. code-block::
 
    kim_property create 1 tag:brunnels@noreply.openkim.org,2016-05-11:property/atomic-mass
    kim_property create 2 tag:staff@noreply.openkim.org,2014-04-15:property/cohesive-energy-relation-cubic-crystal
 
-.. parsed-literal::
+.. code-block::
 
    kim_property create 1 new-property.edn
    kim_property create 2 /home/mary/marys-kim-properties/dissociation-energy.edn
@@ -978,7 +978,7 @@ in the map associated with the key that is to be set.  For example, the
 property definition consists of two property keys named "mass" and "species."
 An instance of this property could be created like so:
 
-.. parsed-literal::
+.. code-block::
 
    kim_property create 1 atomic-mass
    kim_property modify 1 key species source-value Al
@@ -987,7 +987,7 @@ An instance of this property could be created like so:
 
 or, equivalently,
 
-.. parsed-literal::
+.. code-block::
 
    kim_property create 1 atomic-mass
    kim_property modify 1 key species source-value Al       &
@@ -999,7 +999,7 @@ or, equivalently,
 
 **Create**
 
-.. parsed-literal::
+.. code-block::
 
    kim_property create instance_id property_id
 
@@ -1007,7 +1007,7 @@ The *kim\_property create* command takes as input a property instance ID and the
 property definition name, and creates an initial empty property instance data
 structure.  For example,
 
-.. parsed-literal::
+.. code-block::
 
    kim_property create 1 atomic-mass
    kim_property create 2 cohesive-energy-relation-cubic-crystal
@@ -1021,7 +1021,7 @@ published property definitions in OpenKIM can be found on the `properties page
 One can also provide the name of a file in the current working directory or the
 path of a file containing a valid property definition.  For example,
 
-.. parsed-literal::
+.. code-block::
 
    kim_property create 1 new-property.edn
 
@@ -1035,7 +1035,7 @@ same instance ID multiple times will also produce an error.
 
 **Modify**
 
-.. parsed-literal::
+.. code-block::
 
    kim_property modify instance_id key key_name key_name_key key_name_value
 
@@ -1044,7 +1044,7 @@ by receiving property definition keys along with associated arguments. Each
 *key\_name* is associated with a map containing one or more key-value pairs (in
 the form of *key\_name\_key*-*key\_name\_value* pairs).  For example,
 
-.. parsed-literal::
+.. code-block::
 
    kim_property modify 1 key species source-value Al
    kim_property modify 1 key mass    source-value 26.98154
@@ -1055,7 +1055,7 @@ where the special keyword "key" is followed by a *key\_name* ("species" or
 may continue until either another "key" keyword is given or the end of the
 command line is reached.  Thus, the above could equivalently be written as
 
-.. parsed-literal::
+.. code-block::
 
    kim_property modify 1 key species source-value Al       &
                          key mass    source-value 26.98154 &
@@ -1067,7 +1067,7 @@ single property key, the following command modifies the map of the
 is assigned a value of "eV" and the key "digits" which is assigned a value of
 5:
 
-.. parsed-literal::
+.. code-block::
 
    kim_property modify 2 key cohesive-potential-energy source-unit eV digits 5
 
@@ -1104,7 +1104,7 @@ based on the number of atoms in the unit cell of a given cubic crystal.  To
 assign an array containing the string "Al" four times to the "source-value" key
 of the "species" property key, we can do so by issuing:
 
-.. parsed-literal::
+.. code-block::
 
    kim_property modify 2 key species source-value 1 Al
    kim_property modify 2 key species source-value 2 Al
@@ -1138,7 +1138,7 @@ of the "species" property key, we can do so by issuing:
 
    For example, doing the following:
 
-   .. parsed-literal::
+   .. code-block::
 
       kim_property create 2 cohesive-energy-relation-cubic-crystal
       kim_property modify 2 key species source-value 4 Al
@@ -1151,7 +1151,7 @@ indices by specifying two integers separated by a colon (the first integer must
 be less than or equal to the second integer, and no whitespace should be
 included).  Thus, the snippet above could equivalently be written:
 
-.. parsed-literal::
+.. code-block::
 
    kim_property modify 2 key species source-value 1:4 Al Al Al Al
 
@@ -1164,12 +1164,12 @@ error.
 As an example of modifying multidimensional arrays, consider the "basis-atoms"
 key in the `cohesive-energy-relation-cubic-crystal
 <https://openkim.org/properties/show/2014-04-15/staff@noreply.openkim.org/cohesive-energy-relation-cubic-crystal>`_
-property defintion.  This is a two-dimensional array containing the fractional
+property definition.  This is a two-dimensional array containing the fractional
 coordinates of atoms in the unit cell of the cubic crystal.  In the case of,
 e.g. a conventional fcc unit cell, the "source-value" key in the map associated
 with this key should be assigned the following value:
 
-.. parsed-literal::
+.. code-block::
 
    [[0.0, 0.0, 0.0],
     [0.5, 0.5, 0.0],
@@ -1179,7 +1179,7 @@ with this key should be assigned the following value:
 While each of the twelve components could be set individually, we can instead set
 each row at a time using colon notation:
 
-.. parsed-literal::
+.. code-block::
 
    kim_property modify 2 key basis-atom-coordinates source-value 1 1:3 0.0 0.0 0.0
    kim_property modify 2 key basis-atom-coordinates source-value 2 1:3 0.5 0.5 0.0
@@ -1189,7 +1189,7 @@ each row at a time using colon notation:
 Where the first index given refers to a row and the second index refers to a
 column.  We could, instead, choose to set each column at a time like so:
 
-.. parsed-literal::
+.. code-block::
 
    kim_property modify 2 key basis-atom-coordinates source-value 1:4 1 0.0 0.5 0.5 0.0 &
                          key basis-atom-coordinates source-value 1:4 2 0.0 0.5 0.0 0.5 &
@@ -1200,14 +1200,14 @@ column.  We could, instead, choose to set each column at a time like so:
     can be combined into a single invocation, meaning the following are
     both valid:
 
-    .. parsed-literal::
+    .. code-block::
 
         kim_property modify 2 key basis-atom-coordinates source-value 1 1:3 0.0 0.0 0.0 &
                               key basis-atom-coordinates source-value 2 1:3 0.5 0.5 0.0 &
                               key basis-atom-coordinates source-value 3 1:3 0.5 0.0 0.5 &
                               key basis-atom-coordinates source-value 4 1:3 0.0 0.5 0.5
 
-    .. parsed-literal::
+    .. code-block::
 
         kim_property modify 2 key short-name source-value 1 fcc                         &
                               key species source-value 1:4 Al Al Al Al                  &
@@ -1223,13 +1223,13 @@ column.  We could, instead, choose to set each column at a time like so:
    For multidimensional arrays, only one colon-separated range is allowed
    in the index listing.  Therefore,
 
-   .. parsed-literal::
+   .. code-block::
 
       kim_property modify 2 key basis-atom-coordinates 1 1:3 0.0 0.0 0.0
 
    is valid but
 
-   .. parsed-literal::
+   .. code-block::
 
       kim_property modify 2 key basis-atom-coordinates 1:2 1:3 0.0 0.0 0.0 0.0 0.0 0.0
 
@@ -1241,27 +1241,27 @@ column.  We could, instead, choose to set each column at a time like so:
 
 **Remove**
 
-.. parsed-literal::
+.. code-block::
 
    kim_property remove instance_id key key_name
 
 The *kim\_property remove* command can be used to remove a property key from a
 property instance.  For example,
 
-.. parsed-literal::
+.. code-block::
 
    kim_property remove 2 key basis-atom-coordinates
 
 **Destroy**
 
-.. parsed-literal::
+.. code-block::
 
    kim_property destroy instance_id
 
 The *kim\_property destroy* command deletes a previously created property
 instance ID.  For example,
 
-.. parsed-literal::
+.. code-block::
 
    kim_property destroy 2
 
@@ -1274,13 +1274,13 @@ instance ID.  For example,
 The *kim\_property dump*  command can be used to write the content of all
 currently defined property instances to a file:
 
-.. parsed-literal::
+.. code-block::
 
    kim_property dump file
 
 For example,
 
-.. parsed-literal::
+.. code-block::
 
    kim_property dump results.edn
 
