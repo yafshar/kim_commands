@@ -397,11 +397,11 @@ The KIM project is led by Ellad Tadmor and Ryan Elliott (U Minnesota)
 and is funded by the `National Science Foundation <https://www.nsf.gov/>`_.
 
 **Authors:** Ryan Elliott (U Minnesota) is the main developer for the KIM
-API and the *pair\_style kim* command. Yaser Afshar (U Minnesota) is the
-developer and contributer to the *kim\_commands* in LAMMPS. Axel Kohlmeyer
-(Temple U), Ellad Tadmor (U Minnesota), and Daniel Karls (U Minnesota)
-contributed to the :doc:`kim_commands <kim_commands>` interface in close
-collaboration with Ryan Elliott and Yaser Afshar.
+API and the *pair\_style kim* command. Yaser Afshar (U Minnesota),
+Axel Kohlmeyer (Temple U), Ellad Tadmor (U Minnesota), and
+Daniel Karls (U Minnesota) contributed to the
+:doc:`kim_commands <kim_commands>` interface in close collaboration with
+Ryan Elliott.
 
 **Install:**
 
