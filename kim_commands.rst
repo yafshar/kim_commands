@@ -61,7 +61,7 @@ Syntax
 * instance\_id = a positive integer identifying the KIM property instance
 * property\_id = identifier of a `KIM Property Definition <https://openkim.org/properties>`_, which can be (1) a property short name, (2) the full unique ID of the property (including the contributor and date), (3) a file name corresponding to a local property definition file
 * key\_name = one of the keys belonging to the specified KIM property definition
-* key\_name\_key = a key belonging to a key-value pair (standardized in the `KIM Properties Framework <https://openkim.org/doc/schema/properties-framework>`_)
+* key\_name\_key = a key belonging to a key-value pair (standardized in the `KIM Properties Framework <https://openkim.org/doc/schema/properties-framework>`__)
 * key\_name\_value = value to be associated with a key\_name\_key in a key-value pair
 * file = name of a file to write the currently defined set of KIM property instances to
 
@@ -895,7 +895,7 @@ Models (interatomic potentials), Predictions, and Reference Data (DFT or experim
 Specifically, a KIM Test is a computation that when coupled with a KIM Model generates
 the prediction of that model for a specific material property rigorously defined
 by a KIM Property Definition (see the
-`KIM Properties Framework <https://openkim.org/doc/schema/properties-framework/>`_
+`KIM Properties Framework <https://openkim.org/doc/schema/properties-framework/>`__
 for further details). A prediction of a material property for a given model is a specific
 numerical realization of a property definition, referred to as a "Property
 Instance."  The objective of the *kim\_property* command is to make it easy to
@@ -956,7 +956,7 @@ the *key\_name* argument, that are defined as part of the relevant KIM Property
 Definition and include only lowercase alphanumeric characters and dashes.  The
 value paired with each property key is itself a map whose possible keys are
 defined as part of the `KIM Properties Framework
-<https://openkim.org/doc/schema/properties-framework>`_; these keys are
+<https://openkim.org/doc/schema/properties-framework>`__; these keys are
 referred to by the *key\_name\_key* argument and their associated values by the
 *key\_name\_value* argument.  These values may either be scalars or arrays,
 as stipulated in the property definition.
