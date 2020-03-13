@@ -189,7 +189,9 @@ KIM package
 ---------------------
 
 To build with this package, the KIM library with API v2 must be downloaded
-and built on your system.  If you want to use the :doc:`kim_query <kim_commands>`
+and built on your system.
+
+If you would like to use the :doc:`kim_query <kim_commands>`
 command, you also need to have libcurl installed with the matching
 development headers and the curl-config tool.
 
