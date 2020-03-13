@@ -1116,9 +1116,9 @@ of the "species" property key, we can do so by issuing:
       * float
       * 0.0
       * string
-      * ""
+      * \"\"
       * file
-      * ""
+      * \"\"
 
    For example, doing the following:
 
