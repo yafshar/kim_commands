@@ -368,13 +368,13 @@ This package contains a set of commands that serve as a wrapper on the
 repository of interatomic models (IMs) enabling compatible ones to be used in
 LAMMPS simulations.
 
-This includes :doc:`kim_init and kim\_interactions <kim_commands>` commands
-to select, initialize and instantiate the IM, a
-:doc:`kim_query <kim_commands>` command to perform web queries for material
-property predictions of OpenKIM IMs, :doc:`kim_param <kim_commands>`
-command to access KIM Model Parameters from LAMMPS, and a
-:doc:`kim_property <kim_commands>` command to write material properties
-computed in LAMMPS to standard KIM property instance format.
+This includes :doc:`kim_init <kim_commands>`, and
+:doc:`kim\_interactions <kim_commands>` commands to select, initialize and
+instantiate the IM, a :doc:`kim_query <kim_commands>` command to perform web
+queries for material property predictions of OpenKIM IMs, a
+:doc:`kim_param <kim_commands>` command to access KIM Model Parameters from
+LAMMPS, and a :doc:`kim_property <kim_commands>` command to write material
+properties computed in LAMMPS to standard KIM property instance format.
 
 Support for KIM IMs that conform to the
 `KIM Application Programming Interface (API) <https://openkim.org/kim-api/>`_
