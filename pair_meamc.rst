@@ -361,6 +361,12 @@ recent published MEAM parameter sets, such as :ref:`(Valone) <Valone>`
    literature).  An alternative form (see e.g. :ref:`(Lee2) <Lee2>`) is
    available using erose_form = 2.
 
+**MEAM potentials are available from:**
+
+* The OpenKIM Project at https://openkim.org/browse/models/by-type provides
+  MEAM potentials that can be used directly in LAMMPS with the
+  :doc:`kim_commands interface <kim_commands>`.
+
 ----------
 
 **Mixing, shift, table, tail correction, restart, rRESPA info**\ :

@@ -123,6 +123,12 @@ multi-element EDIP parameterization. If you know any and
 you are interest in that, please contact the author of
 the EDIP package.
 
+**EDIP potentials are available from:**
+
+* The OpenKIM Project at https://openkim.org/browse/models/by-type provides
+  EDIP potentials that can be used directly in LAMMPS with the
+  :doc:`kim_commands interface <kim_commands>`.
+
 ----------
 
 Styles with a *gpu*\ , *intel*\ , *kk*\ , *omp*\ , or *opt* suffix are

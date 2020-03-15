@@ -217,6 +217,12 @@ Many thanks to Rutuparna Narulkar, David Farrell, and Xiaowang Zhou
 for helping clarify how Tersoff parameters for alloys have been
 defined in various papers.
 
+**TERSOFF potentials are available from:**
+
+* The OpenKIM Project at https://openkim.org/browse/models/by-type provides
+  TERSOFF potentials that can be used directly in LAMMPS with the
+  :doc:`kim_commands interface <kim_commands>`.
+
 ----------
 
 Styles with a *gpu*\ , *intel*\ , *kk*\ , *omp*\ , or *opt* suffix are
