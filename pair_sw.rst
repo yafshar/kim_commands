@@ -165,8 +165,9 @@ taken from the ij and ik pairs (:math:`\sigma`, *a*\ , :math:`\gamma`)
 
 **SW potentials are available from:**
 
-* The OpenKIM Project at https://openkim.org/browse/models/by-type provides
-  SW potentials that can be used directly in LAMMPS with the
+* The OpenKIM Project at
+  `https://openkim.org/browse/models/by-type <https://openkim.org/browse/models/by-type>`_
+  provides SW potentials that can be used directly in LAMMPS with the
   :doc:`kim_commands interface <kim_commands>`.
 
 ----------

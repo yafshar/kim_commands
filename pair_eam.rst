@@ -157,8 +157,9 @@ and described on this page.  The NIST site is maintained by Chandler
 Becker (cbecker at nist.gov) who is good resource for info on
 interatomic potentials and file formats.
 
-The OpenKIM Project at https://openkim.org/browse/models/by-type provides
-EAM potentials that can be used directly in LAMMPS with the
+The OpenKIM Project at
+`https://openkim.org/browse/models/by-type <https://openkim.org/browse/models/by-type>`_
+provides EAM potentials that can be used directly in LAMMPS with the
 :doc:`kim_commands interface <kim_commands>`.
 
 ----------
