@@ -128,7 +128,7 @@ the EDIP package.
 * The OpenKIM Project at
   `https://openkim.org/browse/models/by-type <https://openkim.org/browse/models/by-type>`_
   provides EDIP potentials that can be used directly in LAMMPS with the
-  :doc:`kim_commands interface <kim_commands>`.
+  :doc:`kim_commands <kim_commands>` interface.
 
 ----------
 
